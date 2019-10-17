@@ -161,8 +161,6 @@ select:-moz-focusring {
     top: 50%;
     transform: translateY(-45%);
     font-size: 36px;
-
-
 }
 
 .navtag__options {
@@ -189,6 +187,7 @@ select:-moz-focusring {
 /* Landing Content */
 .landing__container {
     margin: 30px auto;
+    width: 90%;
     display: flex;
     flex-direction: column;
 }
@@ -236,6 +235,8 @@ select:-moz-focusring {
     border: none;
     padding: 0 14px;
     background: transparent;
+    outline: none;
+    font-family: 'BrandonText-Regular';
 }
 
 .landing__searchbutton {
@@ -391,6 +392,7 @@ select:-moz-focusring {
     left: 50%;
     transform: translate(-50%,-50%);
     cursor: pointer;
+    font-family: 'BrandonText-Regular';
 }
 
 .login {
@@ -398,9 +400,9 @@ select:-moz-focusring {
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
-    width: 100vh;
     margin: 0 auto;
+    height: 100vh;
+    width: 100%;
 }
 
 .login__container {
