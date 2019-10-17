@@ -1,0 +1,17 @@
+<nav class="navbar">
+    <div class="navbar__container">
+        <div class="navbar__logocontainer">
+            <a href="{{url_for('landing')}}"><img class="navbar__logo" src="{{url_for('static', filename='img/navbar__logo.png')}}" alt="inpel__logo"></a>
+        </div>
+        <div class="navbar__listcontainer">
+            <ul class="navbar__list">
+                {% if login %}
+                    <li class="navbar__items"><a href="">Dashboard</a></li>
+                    <li class="navbar__items"><a href="{{url_for('logout')}}">Log out</a></li>
+                {% else %}
+                    <li class="navbar__items"><a href="{{url_for('login')}}"><i class="material-icons">account_circle</i>Login</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

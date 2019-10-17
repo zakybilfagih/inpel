@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block header %}{% endblock %}
+{% block title %}INPEL | Indonesia Natural Products Extract Library{% endblock %}
+
+{% block content %}
+    {% include '/modules/navigation.html' %}
+    {{ super() }}
+    <div class="landing">
+        <div class="landing__container">
+
+            <div class="landing__imagecontainer">
+                <img class="landing__image" src="{{url_for('static',filename='img/landing__logo.png')}}" alt="landing__image">
+            </div>
+
+            
+            <form class="landing__formcontainer" action="/query">
+                <div class="landing__search">
+                    <input class="landing__searchinput" name="query" type="text" placeholder="Search">
+                    <button class="landing__searchbutton"><i class="material-icons">search</i></button>
+                </div>
+                <div class="landing__filterby">
+                    <h5>Search by: </h5>
+                    <div class="landing__radiogroup">
+                        <div class="landing__radiocontainer">
+                            <input type="radio" name="filterby" value="Any type" id="Any type" checked>
+                            <label for="Any type" class="landing__radio">Any type</label>
+                        </div>
+                        <div class="landing__radiocontainer">
+                            <input type="radio" name="filterby" value="Metabolite" id="Metabolite">
+                            <label for="Metabolite" class="landing__radio">Metabolite</label>
+                        </div>
+                        <div class="landing__radiocontainer">
+                            <input type="radio" name="filterby" value="Common name" id="Common name">
+                            <label for="Common name" class="landing__radio">Common name</label>
+                        </div>
+                        <div class="landing__radiocontainer">
+                            <input type="radio" name="filterby" value="Scientific name" id="Scientific name">
+                            <label for="Scientific name" class="landing__radio">Scientific name</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="landing__searchoptions">
+                    <h5>Filter by location: </h5>
+                    <div class="landing__dropdowncontainer">
+                        <select name="location" class="landing__dropdown">
+                            <option value="" disabled selected>Select province</option>
+                            {% for loc in location %}
+                                <option value="{{loc}}">{{loc}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="landing__searchoptions">
+                    <h5>Filter by phytochemical content : </h5>
+                    <div class="landing__dropdowncontainer">
+                        <select name="phyto" class="landing__dropdown">
+                            <option value="" disabled selected>Select compound</option>
+                            {% for items in phyto %}
+                                <option value="{{ items[0] }}">{{items[0]}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div> 
+            </form>
+            
+        </div>
+    </div>
+{% endblock %}
+
+{% block navtag %}
+    <h3 class="navtag__header">INDONESIA NATURAL PRODUCTS EXTRACT LIBRARY</h3>
+{% endblock %}
+
+{% block scripts %}{% endblock %}
