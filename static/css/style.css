@@ -438,24 +438,39 @@ select:-moz-focusring {
     margin-bottom: 5px;
 }
 
-.post__args ul li{
+.post__args ul li {
     display: inline-block;
     background: #388A5F;
     color: white;
     padding: 5px 8px;
+    margin: 5px 5px 5px 0;
 }
 
 .post__item {
     display: flex;
     margin-top: 20px;
+    font-family: 'BrandonText-Regular';
 }
 
 .post__itemcaption {
     margin-left: 20px;
 }
 
+.post__itemcaption h3{
+    font-size: 22px;
+}
+
+.post__itemcaption p {
+    font-size: 18px;
+}
+
 .post__itemcaption a {
-    color: black;
+    display: block;
+    width: 80px;
+    color: white;
+    background: #388A5F;
+    padding: 5px;
+    text-align: center;
 }
 
 .post__itemimage {
