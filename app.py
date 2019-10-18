@@ -16,7 +16,7 @@ def landing():
     try:
         r = requests.get('https://server1.naradhipabhary.com:888/phyto')
         d = r.json()
-    except MaxRetryError:
+    except:
         print('Max retry!')
 
     country = CountryInfo('Indonesia')
@@ -59,7 +59,7 @@ def query():
     try:
         r = requests.get('https://server1.naradhipabhary.com:888/phyto')
         d = r.json()
-    except MaxRetryError:
+    except:
         print('Max retry!')
 
     phyto = []
@@ -99,7 +99,7 @@ def query():
         for i in items:
             if i['phytochemicalContent'] in phytolist:
                 hits.append(i)
-            
+                
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
 
 @app.route('/login', methods=['GET','POST'])
