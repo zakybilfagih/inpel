@@ -42,6 +42,17 @@ select:-moz-focusring {
     user-select: none;
 }
 
+.atquery {
+    width: 50%;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    transition: background-color 5000s ease-in-out 0s;
+}
+
 /* Navbar */
 .navbar {
     position: relative;
@@ -332,6 +343,8 @@ select:-moz-focusring {
 
 .navtag__filterby h5 {
     font-size: 20px;
+    font-family: 'BrandonText-Medium';
+    font-weight: normal;
 }
 
 .landing__filterby h5 {

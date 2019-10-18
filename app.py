@@ -13,9 +13,11 @@ def landing():
     else:
         login = session['login']
 
-    
-    r = requests.get('https://server1.naradhipabhary.com:888/phyto')
-    d = r.json()
+    try:
+        r = requests.get('https://server1.naradhipabhary.com:888/phyto')
+        d = r.json()
+    except MaxRetryError:
+        print('Max retry!')
 
     country = CountryInfo('Indonesia')
     countd = country.info()
@@ -40,6 +42,11 @@ def query():
     else:
         login = session['login']
 
+    country = CountryInfo('Indonesia')
+    countd = country.info()
+    location = countd['provinces']
+
+    args = {}
     args = {
         "query":request.args.get('query'),
         "filterby":request.args.get('filterby'),
@@ -49,15 +56,26 @@ def query():
 
     argslist = list(args.values())
 
-    r = requests.get('https://server1.naradhipabhary.com:888/phyto')
-    d = r.json()
+    try:
+        r = requests.get('https://server1.naradhipabhary.com:888/phyto')
+        d = r.json()
+    except MaxRetryError:
+        print('Max retry!')
+
+    phyto = []
+    for i in range(len(d)):
+        sama = False
+        for j in phyto:
+            if d[i]['name'] in j:
+                sama = True
+        if not sama:
+            phyto.append([d[i]['name'],d[i]['_id']])
 
     phytolist = []
     for i in d:
         if args['phyto'] == None:
-            for j in d:
-                phytolist.append(j['_id'])
-            break
+            phytolist.append(i['_id'])
+            continue
         if i['name'] == args['phyto']:
             phytolist.append(i['_id'])
 
@@ -82,7 +100,7 @@ def query():
             if i['phytochemicalContent'] in phytolist:
                 hits.append(i)
             
-    return render_template('query.html',login=login, argslist=argslist, hits=hits)
+    return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
 
 @app.route('/login', methods=['GET','POST'])
 def login():
