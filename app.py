@@ -18,6 +18,7 @@ def landing():
         d = r.json()
     except:
         print('Max retry!')
+        d = {}
 
     country = CountryInfo('Indonesia')
     countd = country.info()
@@ -61,6 +62,7 @@ def query():
         d = r.json()
     except:
         print('Max retry!')
+        d = {}
 
     phyto = []
     for i in range(len(d)):
@@ -81,10 +83,14 @@ def query():
 
     items = []
     if args['query'].strip():
-        r = requests.get(f'https://server1.naradhipabhary.com:888/species/search/{args["query"]}')
-        d = r.json()
-    
-        items = d['hits']['hits']
+        try:
+            r = requests.get(f'https://server1.naradhipabhary.com:888/species/search/{args["query"]}')
+            d = r.json()
+        except:
+            d = {}
+
+        if d:
+            items = d['hits']['hits']
         for i in range(len(items)):
             if None in items:
                 items.remove(None)

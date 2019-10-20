@@ -248,6 +248,7 @@ input:-webkit-autofill:active {
     background: transparent;
     outline: none;
     font-family: 'BrandonText-Regular';
+    font-size: 16px;
 }
 
 .landing__searchbutton {
@@ -406,6 +407,7 @@ input:-webkit-autofill:active {
     transform: translate(-50%,-50%);
     cursor: pointer;
     font-family: 'BrandonText-Regular';
+    font-size: 16px;
 }
 
 .login {
