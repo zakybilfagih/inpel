@@ -43,10 +43,12 @@ def query():
     else:
         login = session['login']
 
+    # GET PROVINCE LIST
     country = CountryInfo('Indonesia')
     countd = country.info()
     location = countd['provinces']
 
+    # GETTING ARGS
     args = {}
     args = {
         "query":request.args.get('query'),
@@ -57,6 +59,7 @@ def query():
 
     argslist = list(args.values())
 
+    # GETTING PHYTO LIST
     try:
         r = requests.get('https://server1.naradhipabhary.com:888/phyto')
         d = r.json()
@@ -64,6 +67,7 @@ def query():
         print('Max retry!')
         d = {}
 
+    # REMOVE DUPLICATE PHYTOCHEMS
     phyto = []
     for i in range(len(d)):
         sama = False
@@ -72,6 +76,7 @@ def query():
                 sama = True
         if not sama:
             phyto.append([d[i]['name'],d[i]['_id']])
+
 
     phytolist = []
     for i in d:
@@ -104,6 +109,11 @@ def query():
     if items:
         for i in items:
             if i['phytochemicalContent'] in phytolist:
+                if args['location'] == None:
+                    pass
+                elif i['province'] != args['location']:
+                    continue 
+                
                 hits.append(i)
                 
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
