@@ -230,7 +230,7 @@ input:-webkit-autofill:active {
     display: flex;
     justify-content: space-between;
     background: white;
-    border-radius:50px;
+    border-radius: 50px;
     border: 4px solid #388A5F;
     padding: 0 6px;
     transition: box-shadow 200ms ease;
