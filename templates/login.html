@@ -7,23 +7,25 @@
     {% with messages = get_flashed_messages() %}
     <div class="login"> 
         <form method="POST" action="/login" class="login__container">
-            {% if messages %}
-            <ul class="flashed">
-                {% for message in messages %}
-                    <li>{{ message | e}}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            {% endwith %}
-            <div class="login__items">
-                <label for="username" class="login__itemlabel">Username: </label>
-                <input type="text" placeholder="Username" name="username" id="username">
+            <div class="login__options">
+                {% if messages %}
+                <ul class="flashed">
+                    {% for message in messages %}
+                        <li>{{ message | e}}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+                {% endwith %}
+                <div class="login__items">
+                    <label for="username" class="login__itemlabel">Username: </label>
+                    <input type="text" placeholder="Username" name="username" id="username">
+                </div>
+                <div class="login__items">
+                    <label for="password" class="login__itemlabel">Password:</label>
+                    <input type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <button type="submit">Submit</button>
             </div>
-            <div class="login__items">
-                <label for="password" class="login__itemlabel">Password:</label>
-                <input type="password" name="password" id="password" placeholder="Password">
-            </div>
-            <button type="submit">Submit</button>
         </form>
     </div>
 {% endblock %}

@@ -424,7 +424,6 @@ input:-webkit-autofill:active {
     height: 500px;
     width: 500px;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
