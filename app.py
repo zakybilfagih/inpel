@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, flash, url_for, redirect, session
-from countryinfo import CountryInfo
+import pycountry
 import requests
 
 app = Flask(__name__)
@@ -20,9 +20,8 @@ def landing():
         print('Max retry!')
         d = {}
 
-    country = CountryInfo('Indonesia')
-    countd = country.info()
-    location = countd['provinces']
+    country = pycountry.subdivisions.get(country_code='ID')
+    location = [prov.name for prov in country]
 
     phyto = []
     for i in range(len(d)):
@@ -44,9 +43,8 @@ def query():
         login = session['login']
 
     # GET PROVINCE LIST
-    country = CountryInfo('Indonesia')
-    countd = country.info()
-    location = countd['provinces']
+    country = pycountry.subdivisions.get(country_code='ID')
+    location = [prov.name for prov in country]
 
     # GETTING ARGS
     args = {}

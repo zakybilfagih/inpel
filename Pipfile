@@ -9,8 +9,9 @@ pylint = "*"
 [packages]
 flask = "*"
 requests = "*"
-countryinfo = "*"
 gunicorn = "*"
+pycountry = "*"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.7"
