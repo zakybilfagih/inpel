@@ -3,6 +3,131 @@
 {% block header %}{% endblock %}
 {% block title %}{% endblock %}
 {% block content %}
-    
+    <div class="panel">
+        <div class="panel__sidebar">
+            <ul>
+                <div class="panel_items">
+                    <label class="panel__label" for="profile">
+                        <input type="radio" id="profile" name="panel" checked>
+                        <li class="panel__sideitems">
+                            My Profile
+                        </li>
+                    </label>
+                </div>
+                <div class="panel_items">
+                    <label class="panel__label" for="organism">
+                        <input type="radio" id="organism" name="panel">
+                        <li class="panel__sideitems">
+                            My Organism
+                        </li>
+                    </label>
+                </div>
+                <div class="panel__items">
+                    <label class="panel__label" for="newinput">
+                        <input type="radio" id="newinput" name="panel">
+                        <li class="panel__sideitems">
+                            New Input Data
+                        </li>
+                    </label>
+                </div>
+                {% if params.isAdmin %}
+                <div class="panel__items">
+                    <label class="panel__label" for="adduser">
+                        <input type="radio" id="adduser" name="panel">
+                        <li class="panel__sideitems">
+                            Add User
+                        </li>
+                    </label>
+                </div>
+                {% endif %}
+            </ul>
+        </div>
+        <nav>                
+            {% include '/modules/navigation.html' %}
+        </nav>
+        <div class="panel__contentcontainer">
+            <div class="panel__content organism none">                    
+                <h1>My organisms</h1>
+                <p>You have {{ params.speciesCount }} organism regiestered</p>
+                {% for hit in hits %}
+                <div class="post__item">
+                    <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
+                    <div class="post__itemcaption">
+                        <h3><i>{{hit['scientificName']}}</i></h3>
+                        <p>{{hit['commonName']}}</p>
+                        <p>{{hit['province']}}</p>
+                        <a href="">Edit</a>
+                    </div>
+                </div>
+                <div class="post__divider"></div>
+                {% endfor %}
+            </div>
+
+            <div class="panel__content profile">                    
+                <h1>Welcome back {{ params.fullname }}</h1>
+                <p>Username : {{params.username}}</p>
+                <p>Email : {{params.email}}</p>
+                <p>Affiliation : {{params.affiliation}}</p>
+            </div>
+
+            <div class="panel__content newinput none">                    
+                <h1>New Data Input</h1>
+                <form method="POST" action="/dashboard">
+                    <label for="" class="panel__formlabel">Common Name</label>
+                    <input type="text" name="commonName" placeholder="Common name..">
+                    <label for="" class="panel__formlabel">Scientific Name</label>
+                    <input type="text" name="scientificName" placeholder="Scientific name..">
+                    <label for="" class="panel__formlabel">Location</label>
+                    <input type="text" name="location" placeholder="Insert coordinates..">
+                    <input type="text" name="locationRadius" placeholder="Insert radius (km)..">
+                    <select name="province">
+                        <option value="" disabled selected>Select province</option>
+                        {% for loc in location %}
+                            <option value="{{loc}}">{{loc}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="" class="panel__formlabel">Extract Yield</label>
+                    <input type="text" name="extractYield" placeholder="Extract yield..">
+                    <label for="" class="panel__formlabel">Phytochemical Content</label>
+                    <input type="text" name="phytochemicalContent" placeholder="Phytochemical content..">
+                    <label for="" class="panel__formlabel">Antioxidant Activity</label>
+                    <input type="text" name="antioxidantActivity" placeholder="Antioxidant activity..">
+                    <label for="" class="panel__formlabel">Antibacterial Activity</label>
+                    <input type="text" name="antibacterialActivity" placeholder="Antibacterial activity..">
+                    <label for="" class="panel__formlabel">Anticancer Activity</label>
+                    <input type="text" name="anticancerActivity" placeholder="Anticancer activity..">
+                    <label for="" class="panel__formlabel">Metabolomics</label>
+                    <input type="text" name="metabolomics" placeholder="Metabolomics..">
+                    <label for="" class="panel__formlabel">Structure Euclidation</label>
+                    <input type="text" name="structureElucidation" placeholder="Structure elucidation..">
+                    <label for="" class="panel__formlabel">BioAssay</label>
+                    <input type="text" name="bioassay" placeholder="BioAssay..">
+                    <label for="" class="panel__formlabel">Research Paper</label>
+                    <input type="text" name="researchPapers" placeholder="Research Papers..">
+                    <input type="submit" value="Submit">
+                </form>
+            </div>
+
+            {% if params.isAdmin %}
+            <div class="panel__content adduser none">                    
+                <h1>adduser</h1>
+            </div>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
-{% block scripts %}{% endblock %}
+{% block scripts %}
+    <script type="text/javascript">
+    document.addEventListener("change", function(){
+        let radios = document.querySelectorAll('input[type=radio]')
+        radios.forEach(e => {
+            let div = document.getElementsByClassName(e.id)[0]
+            if (e.checked) {
+                div.classList.remove('none')
+            } else {
+                div.classList.add('none')
+            }
+        })
+    });
+    </script>
+{% endblock %}

@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, flash, url_for, redirect, session
+from flask import Flask, render_template, request, flash, url_for, redirect, session, jsonify
+from werkzeug.datastructures import ImmutableMultiDict
 import pycountry
 import requests
 
@@ -115,6 +116,67 @@ def query():
                 hits.append(i)
                 
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
+
+@app.route('/dashboard', methods=['GET','POST'])
+def dash():
+    # LOGIN STUFF
+    login = ''
+    if 'login' not in session:
+        login = False
+    else:
+        login = session['login']
+
+    if not login:
+        return redirect(url_for('landing'))
+
+    # GET USER DATA
+    headers = {
+        "Authorization": session['token']
+    }
+
+    d = requests.get("https://server1.naradhipabhary.com:888/users/verify", headers=headers)
+    r = d.json()
+    
+    params = r
+
+    # GET USER ORGS
+    d2 = requests.get("https://server1.naradhipabhary.com:888/species")
+    r2 = d2.json()        
+    
+    hits = []
+    for item in r2:
+        if item['owner'] == params['_id']:
+            hits.append(item)
+
+    # GET PROVINCE LIST
+    country = pycountry.subdivisions.get(country_code='ID')
+    location = [prov.name for prov in country]
+
+    if request.method == 'POST':
+        d = request.form
+        dso = d.to_dict(flat=False)
+        param = {k: dso[k][0] if len(dso[k]) <= 1 else dso[k] for k in dso}
+        
+        pas = True
+        for item in param.items():
+            if not item[1]:
+                print('yay')
+                pas = False
+        
+        if pas:
+            try:
+                r  = requests.post('https://server1.naradhipabhary.com:888/species', headers=headers, data=param)
+                d = r.json()
+                flash('Success!')
+                return redirect(url_for('dash'))
+            except:
+                flash('Error! try again!')
+                return redirect(url_for('dash'))
+        else:
+            flash('Fill all of the params!')
+            return redirect(url_for('dash'))
+
+    return render_template('panel.html', login=login, params=params, hits=hits, location=location)
 
 @app.route('/login', methods=['GET','POST'])
 def login():

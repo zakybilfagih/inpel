@@ -6,7 +6,7 @@
         <div class="navbar__listcontainer">
             <ul class="navbar__list">
                 {% if login %}
-                    <li class="navbar__items"><a href="">Dashboard</a></li>
+                    <li class="navbar__items"><a href="{{url_for('dash')}}">Dashboard</a></li>
                     <li class="navbar__items"><a href="{{url_for('logout')}}">Log out</a></li>
                 {% else %}
                     <li class="navbar__items"><a href="{{url_for('login')}}"><i class="material-icons">account_circle</i>Login</a></li>
