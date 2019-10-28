@@ -34,7 +34,7 @@
                 <div class="panel__items">
                     <label class="panel__label" for="adduser">
                         <input type="radio" id="adduser" name="panel">
-                        <li class="panel__sideitems">
+                        <l i class="panel__sideitems">
                             Add User
                         </li>
                     </label>
@@ -53,8 +53,10 @@
                 <div class="post__item">
                     <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
                     <div class="post__itemcaption">
+                        {% filter lower %}
                         <h3><i>{{hit['scientificName']}}</i></h3>
                         <p>{{hit['commonName']}}</p>
+                        {% endfilter %}
                         <p>{{hit['province']}}</p>
                         <a href="">Edit</a>
                     </div>

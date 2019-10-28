@@ -110,7 +110,7 @@ def query():
             if i['phytochemicalContent'] in phytolist:
                 if args['location'] == None:
                     pass
-                elif i['province'] != args['location']:
+                elif i['province'] not in args['location']:
                     continue 
                 
                 hits.append(i)
@@ -127,7 +127,7 @@ def dash():
         login = session['login']
 
     if not login:
-        return redirect(url_for('landing'))
+        return redirect(url_for('index'))
 
     # GET USER DATA
     headers = {
