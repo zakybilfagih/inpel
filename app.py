@@ -105,14 +105,22 @@ def query():
         items = d
 
     hits = []
+    filt = ['Sapi', 'Tikus', 'sapi', 'bacan']
     if items:
         for i in items:
             if i['phytochemicalContent'] in phytolist:
                 if args['location'] == None:
                     pass
                 elif i['province'] not in args['location']:
-                    continue 
-                
+                    continue
+                fill = False
+                for fil in filt:
+                    if fil in i['commonName']:
+                        fill = True
+                        break
+                if fill:
+                    continue
+            
                 hits.append(i)
                 
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
