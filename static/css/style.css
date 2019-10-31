@@ -165,12 +165,19 @@ input:-webkit-autofill:active {
 }
 
 .navtag__searchoption label::after {
-    content: 'arrow_drop_down';
     font-family: 'material icons';
     position: absolute;
     top: 50%;
     transform: translateY(-45%);
     font-size: 36px;
+}
+
+.down::after {
+    content: 'arrow_drop_down';
+}
+
+.up::after {
+    content: 'arrow_drop_up'
 }
 
 .navtag__options {

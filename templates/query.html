@@ -3,44 +3,6 @@
 {% block header %}{% endblock %}
 {% block title %}{% endblock %}
 
-{% block content %}
-    {% include '/modules/navigation.html' %}
-    {{ super() }}
-    <div class="post">
-        <div class="post__container">
-            <h1>Showing results for:</h1>
-            <div class="post__args">
-                <ul>
-                    {% for item in argslist %}
-                        {% if item is not none and item%}
-                            <li>{{item}}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-            {% if hits|length == 0 %}
-                <p>No results found!</p>
-            {% else %}
-                <p>{{ hits|length }} results</p>
-                {% for hit in hits %}
-                <div class="post__item">
-                    <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
-                    <div class="post__itemcaption">
-                        {% filter lower %}
-                        <h3><i>{{hit['scientificName']}}</i></h3>
-                        {% endfilter %}
-                        <p>{{hit['commonName']}}</p>
-                        <p>{{hit['province']}}</p>
-                        <a href="">View more</a>
-                    </div>
-                </div>
-                <div class="post__divider"></div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-{% endblock %}
-
 {% block navtag %}
     <form action="/query">
         <div class="navtag__searchcontainer">
@@ -49,7 +11,7 @@
                 <button class="landing__searchbutton"><i class="material-icons">search</i></button>
             </div>
             <div class="navtag__searchoption">
-                <label class="unselectable" for="navtag__searchoptiontoggle">Search options</label>
+                <label class="navtag__optionlabel unselectable down" for="navtag__searchoptiontoggle">Search options</label>
             </div>
         </div>
         <input type="checkbox" id="navtag__searchoptiontoggle">
@@ -101,4 +63,50 @@
     </form>
 {% endblock %}
 
-{% block scripts %}{% endblock %}
+{% block content %}
+    {% include '/modules/navigation.html' %}
+    {{ super() }}
+    <div class="post">
+        <div class="post__container">
+            <h1>Showing results for:</h1>
+            <div class="post__args">
+                <ul>
+                    {% for item in argslist %}
+                        {% if item is not none and item%}
+                            <li>{{item}}</li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% if hits|length == 0 %}
+                <p>No results found!</p>
+            {% else %}
+                <p>{{ hits|length }} results</p>
+                {% for hit in hits %}
+                <div class="post__item">
+                    <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
+                    <div class="post__itemcaption">
+                        {% filter lower %}
+                        <h3><i>{{hit['scientificName']}}</i></h3>
+                        {% endfilter %}
+                        <p>{{hit['commonName']}}</p>
+                        <p>{{hit['province']}}</p>
+                        <a href="">View more</a>
+                    </div>
+                </div>
+                <div class="post__divider"></div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        let drop = document.querySelector(".navtag__optionlabel")
+        drop.addEventListener('click', () => {
+            drop.classList.toggle('up')
+        })
+    </script>
+{% endblock %}

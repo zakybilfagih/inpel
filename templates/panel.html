@@ -2,6 +2,7 @@
 
 {% block header %}{% endblock %}
 {% block title %}{% endblock %}
+
 {% block content %}
     <div class="panel">
         <div class="panel__sidebar">
@@ -118,9 +119,11 @@
         </div>
     </div>
 {% endblock %}
+
 {% block scripts %}
     <script type="text/javascript">
-    document.addEventListener("change", function(){
+    let panel = document.querySelector('.panel__sidebar ul')
+    panel.addEventListener("change", function(){
         let radios = document.querySelectorAll('input[type=radio]')
         radios.forEach(e => {
             let div = document.getElementsByClassName(e.id)[0]
