@@ -108,7 +108,6 @@ def query():
     if items:
         for i in items:
             if i['phytochemicalContent'] in phytolist:
-                print(phytolist)
                 if args['location'] == None:
                     pass
                 elif i['province'] not in args['location']:
@@ -161,7 +160,6 @@ def dash():
         pas = True
         for item in param.items():
             if not item[1]:
-                print('yay')
                 pas = False
         
         if pas:
