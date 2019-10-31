@@ -49,7 +49,7 @@
         <div class="panel__contentcontainer">
             <div class="panel__content organism none">                    
                 <h1>My organisms</h1>
-                <p>You have {{ params.speciesCount }} organism regiestered</p>
+                <p>You have {{ hits | length }} organism regiestered</p>
                 {% for hit in hits %}
                 <div class="post__item">
                     <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
