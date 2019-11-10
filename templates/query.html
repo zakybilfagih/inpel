@@ -87,7 +87,7 @@
                     <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
                     <div class="post__itemcaption">
                         {% filter lower %}
-                        <h3><i>{{hit['scientificName']}}</i></h3>
+                        <h3><i>{{ hit['scientificName'] }}</i></h3>
                         {% endfilter %}
                         <p>{{hit['commonName']}}</p>
                         <p>{{hit['province']}}</p>

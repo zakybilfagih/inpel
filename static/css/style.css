@@ -2,12 +2,12 @@
 
 @font-face {
     font-family: 'BrandonText-Medium';
-    src: url(/static/fonts/Brandon-Text-Medium.otf);
+    src: url(/static/fonts/BrandonText-Medium.otf);
 }
 
 @font-face {
     font-family: 'BrandonText-Bold';
-    src: url(/static/fonts/Brandon-Text-Bold.otf);
+    src: url(/static/fonts/BrandonText-Bold.otf);
 }
 
 @font-face {
@@ -15,7 +15,7 @@
     src: url(/static/fonts/BrandonText-Regular.otf);
 }
 
- 
+
 * {
     padding: 0;
     margin: 0;
@@ -75,9 +75,20 @@ input:-webkit-autofill:active {
     background: none;
 }
 
+    .navbar__logocontainer a {
+        display: flex;
+        align-items: center;
+        font-size: 24px;
+    }
+
     .navbar__logo {
         height: 35px;
         width: 35px;
+        margin-right: 8px;
+    }
+
+    .navbar__logotext {
+        font-family: 'BrandonText-Bold';
     }
 
 /* Navbar List */
@@ -102,7 +113,7 @@ input:-webkit-autofill:active {
     .navbar__items a:hover {
         color: #388A5F;
     }
-    
+
 
     .navbar__items:not(:last-child){
         padding-right: 20px;
@@ -622,4 +633,4 @@ input:-webkit-autofill:active {
 
 
 
-    
+
