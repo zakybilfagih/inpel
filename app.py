@@ -149,7 +149,7 @@ def dash():
     # GET USER ORGS
     try:
         r2 = requests.get("https://server1.naradhipabhary.com:888/species")
-        d2 = r.json()
+        d2 = r2.json()
     except:
         print('Max retry!')
         d2 = {}
