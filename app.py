@@ -32,7 +32,7 @@ def landing():
                 sama = True
         if not sama:
             phyto.append([d[i]['name'],d[i]['_id']])
-    
+
     return render_template('landing.html', login=login,location=location, phyto=phyto)
 
 @app.route('/query')
@@ -99,10 +99,13 @@ def query():
             if None in items:
                 items.remove(None)
     else:
-        r = requests.get('https://server1.naradhipabhary.com:888/species')
-        d = r.json()
-
-        items = d
+       try:
+            r = requests.get('https://server1.naradhipabhary.com:888/species')
+            d = r.json()
+            items = d
+        except:
+            print('Max retry!')
+            items = {}
 
     hits = []
     if items:
@@ -113,8 +116,8 @@ def query():
                 elif i['province'] not in args['location']:
                     continue
                 hits.append(i)
-    
-                
+
+
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
 
 @app.route('/dashboard', methods=['GET','POST'])
@@ -134,17 +137,25 @@ def dash():
         "Authorization": session['token']
     }
 
-    d = requests.get("https://server1.naradhipabhary.com:888/users/verify", headers=headers)
-    r = d.json()
-    
-    params = r
+    try:
+        r = requests.get("https://server1.naradhipabhary.com:888/users/verify", headers=headers)
+        d = r.json()
+    except:
+        print('Max retry!')
+        d = {}
+
+    params = d
 
     # GET USER ORGS
-    d2 = requests.get("https://server1.naradhipabhary.com:888/species")
-    r2 = d2.json()        
-    
+    try:
+        r2 = requests.get("https://server1.naradhipabhary.com:888/species")
+        d2 = r.json()
+    except:
+        print('Max retry!')
+        d2 = {}
+
     hits = []
-    for item in r2:
+    for item in d2:
         if item['owner'] == params['_id']:
             hits.append(item)
 
@@ -156,12 +167,12 @@ def dash():
         d = request.form
         dso = d.to_dict(flat=False)
         param = {k: dso[k][0] if len(dso[k]) <= 1 else dso[k] for k in dso}
-        
+
         pas = True
         for item in param.items():
             if not item[1]:
                 pas = False
-        
+
         if pas:
             try:
                 r  = requests.post('https://server1.naradhipabhary.com:888/species', headers=headers, data=param)
@@ -206,7 +217,6 @@ def logout():
     session['login'] = False
 
     return redirect(url_for('landing'))
-
 
 if __name__ == '__main__':
     app.run(debug=True)
