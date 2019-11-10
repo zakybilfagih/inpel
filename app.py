@@ -99,7 +99,7 @@ def query():
             if None in items:
                 items.remove(None)
     else:
-       try:
+        try:
             r = requests.get('https://server1.naradhipabhary.com:888/species')
             d = r.json()
             items = d
