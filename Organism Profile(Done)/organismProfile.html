@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>INPL | Organism</title>
+    <link rel="icon" type="image/ico" href="imgs/logo.png" />
+    <link rel="stylesheet" href="organismProfile.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+</head>
+<body>
+<!-- Top Navbar -->
+    <nav id="topNav" class="container-fluid d-flex align-items-center">
+        <div class="row">
+            <a href="" id="home" class="col-12 col-sm-2 d-flex align-items-center">
+                <img src="imgs/logo_white.png" alt="">
+                <h1>INPL</h1>
+            </a>
+            <div id = "tabs" class="col-12 col-sm-10 d-flex align-items-center">
+                <a href="">My Organisms</a>
+                <a href="">Data Input</a>
+                <a href=""id="loginBtn" class="d-flex align-items-center">
+                    <i class="fas fa-user-circle"></i>
+                    <p>Login</p>
+                </a>
+            </div>
+        </div>
+    </nav>
+<!--End of Top Nav-->
+<!--Bottom Nav-->
+    <nav id="botNav">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12 col-md-9 d-flex justify-content-center">
+                    <form action="">
+                        <input placeholder="Search INPL Database" type="text">
+                        <button>Search Options</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+<!--end Bottom of Nav-->
+<!--content-->
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 col-md-6 d-flex justify-content-center p-0 m-0">
+                <!--left-hand-side of the screen (organism details and image)-->
+                <div class="main">
+                    <div class="mainheader d-flex align-items-center justify-content-center"><h1>Main Common Name</h1></div>
+                    <div class="image img-fluid"><img src="imgs/img_placeholder.png" alt=""></div>
+                    <div class="details d-flex justify-content-center">
+                        <!--Organism Details-->
+                        <table>
+                            <tr>
+                                <td>Scientific Name</td>
+                                <td>:</td>
+                                <td class="detailsContent"><em>Rhizopora apiculata</em></td>
+                            </tr>
+                            <tr>
+                                <td>Other Names</td>
+                                <td>:</td>
+                                <td class="detailsContent">Jangkah, Slengkreng, Tinjang, Bakau, Bakau-leutik, Bakau-kacang</td>
+                            </tr>
+                            <tr>
+                                <td>Phytochemical Content</td>
+                                <td>:</td>
+                                <td class="detailsContent">
+                                    <ul>
+                                        <li>Steroid</li>
+                                        <li>Saponin</li>
+                                        <li>Tanin</li>
+                                        <li>Flavonoid</li>
+                                        <li>Triterpenoid</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Bioassay</td>
+                                <td>:</td>
+                                <td class="detailsContent">
+                                    <ul>
+                                        <li>Antibacterial</li>
+                                        <li>Anticancer</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Metabolites</td>
+                                <td>:</td>
+                                <td class="detailsContent">
+                                    <ul>
+                                        <li>Ehtanol</li>
+                                        <li>Glutamic Acid</li>
+                                    </ul>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--right-hand-side of the screen (coordinates and publication details)-->
+            <div class="col-12 col-md-6 flex-column p-0">
+                <!--map section-->
+                <div class="map">
+                    <div class="mapheader">
+                        <h1>Location</h1>
+                    </div>
+                    <div class="mapvisual">
+                        <img src="imgs/map.png" alt="">
+                    </div>
+                    <div class="coor">Coordinates: -5.578318,105.809635 Radius: 5km</div>
+                </div>
+                <!--publication section-->
+                <div class="pubDetails">
+                    <table>
+                        <tr>
+                            <td>Publication</td>
+                            <td>:</td>
+                            <td class="detailsContent">Publication</td>
+                        </tr>
+                        <tr>
+                            <td>Researcher Name</td>
+                            <td>:</td>
+                            <td class="detailsContent">Researcher Name</td>
+                        </tr>
+                        <tr>
+                            <td>Researcher Profile</td>
+                            <td>:</td>
+                            <td class="detailsContent">Researcher Profile</td>
+                        </tr>
+                        <tr>
+                            <td>Institution</td>
+                            <td>:</td>
+                            <td class="detailsContent">Institution</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

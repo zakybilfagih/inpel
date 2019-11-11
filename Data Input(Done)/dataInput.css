@@ -1,0 +1,234 @@
+/* Fonts */
+@font-face {
+    font-family: 'brandon-text-bold';
+    src: url(fonts/brandonText_bold.otf);
+}
+
+@font-face {
+    font-family: 'brandon-text-black';
+    src: url(fonts/brandonText_black.otf);
+}
+
+@font-face {
+    font-family: 'brandon-text-medium';
+    src: url(fonts/brandonText_medium.otf);
+}
+
+@font-face {
+    font-family: 'brandon-text-regular';
+    src:url(fonts/brandonText_regular.otf);
+}
+
+/* nav */
+#home {
+    padding-left:1.5em;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+#tabs {
+    display:flex;
+    justify-content: flex-end;
+}
+
+@media (max-width:575px) {
+    #home {
+        justify-content: center;
+        padding:0;
+    }
+    #tabs {
+        justify-content:center;
+        padding:0;
+    }
+}
+
+#topNav {
+    position:relative;
+    background: #383a39;
+    color:white;
+    box-shadow:0 1px 20px rgba(56, 58, 57,.8);
+}
+
+#topNav .row {
+    width:100vw;
+    padding-bottom:.5em;
+    padding-top:.5em;
+}
+
+#topNav #tabs img {
+    width:22px;
+    height:20px;
+}
+
+#botNav {
+    position:rleative;
+    background:#328a65;
+    font-family: "brandon-text-bold";
+    color:white;
+    box-shadow:0 1px 20px rgba(56, 58, 57,.5);
+}
+
+#botNav h1 {
+    font-size: 1.3em;
+    padding:.5em 24px;
+}
+
+#tabs a, #tabs div{
+    font-family: "brandon-text-medium";
+    color:white;
+    font-size:1em;
+    letter-spacing: .5px;
+}
+
+#tabs a {
+    margin-right:1em;
+    margin-left:2em;
+    text-decoration: none;
+}
+
+#tabs #loginBtn p {
+    margin:0;
+    margin-left:.3em;
+}
+
+#tabs #loginBtn {
+    cursor: pointer;
+}
+
+#tabs a:hover {
+    color:#328a65;
+    transition: color .1s;
+}
+
+#loginLogo span{
+    width:1.5em;
+    height:1.5em;
+    margin-right:.5em;
+    background-image: url(imgs/login_white.png)
+}
+
+#topNav img {
+    width:1.5em;
+    height:1.5em;
+    margin-right:.5em;
+}
+
+#topNav h1 {
+    font-family: "brandon-text-bold";
+    font-size:1.5em;
+    margin:0;
+    color:white;
+}
+/* end of nav */
+/* form */
+form {
+    font-family: "brandon-text-bold";
+    height:auto;
+    margin:2.3em;
+}
+
+@media (max-width:576px) {
+    .form {
+        width:10em;
+    }
+}
+
+form h1 {
+    font-family: "brandon-text-black";
+    font-size: 2em;
+    color: #328a65;
+}
+
+form h2 {
+    font-size: 1.3em;
+}
+
+form input {
+    width:25em;
+    height:3em;
+    border-radius: 13px;
+    border: 1px solid #b5b5b5;
+    margin-top:.3em;
+    margin-bottom:1em;
+    padding-left:1.5em;
+    outline:none;
+}
+
+form input::placeholder {
+    font-family: "brandon-text-regular";
+    color:#b5b5b5;
+}
+
+#imageInput {
+    border: 1px solid #b5b5b5;
+    border-radius: 13px;
+    margin-bottom:1em;
+}
+
+#imageInput button {
+    background:#328a65;
+    border:none;
+    border-radius: 8px;
+    width:9em;
+    color:white;
+    margin-bottom:3.1em;
+
+}
+
+#imageInput img{
+    width:5.5em;
+    height:5em;
+    margin:1em;
+    border:1px solid #328a65;
+    border-radius: 7px;
+    padding:.5em;
+    margin-top:3.1em;
+}
+
+#target {
+    width:20em;
+}
+
+.parent {
+    display: flex;
+    justify-content: center;
+}
+
+#Btn {
+    margin-bottom:2em;
+}
+
+#submit, #cancel{
+    margin:.5em;
+    border:none;
+    border-radius: 5px;
+    font-family: "brandon-text-medium";
+    color:white;
+    font-size: 1.2em;
+    padding-left:1.5em;
+    padding-right:1.5em;
+    padding-top:.2em;
+    padding-bottom:.2em;
+    outline:none;
+}
+
+#submit {
+    background:#328a65;
+}
+
+#cancel {
+    background:#43464d;
+}
+
+@media (max-width:992px) {
+    .parent {
+        display: flex;
+        justify-content: flex-start;
+        padding-top:1em;
+    }
+    #Btn {
+        margin-left:2.65em;
+    }
+}
+/* end of Nav */
+
