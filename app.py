@@ -195,9 +195,12 @@ def login():
         password = request.form.get('password')
 
         payload = {'username':f'{username}','password':f'{password}'}
-        r = requests.post('https://server1.naradhipabhary.com:888/users/authenticate', data=payload)
+        try:
+            r = requests.post('https://server1.naradhipabhary.com:888/users/authenticate', data=payload)
+            d = r.json()
+        except:
+            d = {}
 
-        d = r.json()
         if d['success']:
             session['token'] = d['token']
             session['login'] = True
