@@ -74,7 +74,7 @@ def query():
             if d[i]['name'] in j:
                 sama = True
         if not sama:
-            phyto.append([d[i]['name'],d[i]['_id']])
+           phyto.append([d[i]['name'],d[i]['_id']])
 
 
     phytolist = []
