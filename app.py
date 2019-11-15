@@ -8,7 +8,6 @@ app.config['SECRET_KEY'] = 'KJSAksd12321jndsaASKANDSK1iwnemasd'
 
 @app.route('/')
 def landing():
-
     if 'login' not in session:
         login = False
     else:
@@ -116,7 +115,6 @@ def query():
                 elif i['province'] not in args['location']:
                     continue
                 hits.append(i)
-
 
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
 
