@@ -66,37 +66,7 @@
 {% block content %}
     {% include '/modules/navigation.html' %}
     {{ super() }}
-    <div class="post">
-        <div class="post__container">
-            <h1>Showing results for:</h1>
-            <div class="post__args">
-                <ul>
-                    {% for item in argslist %}
-                        {% if item is not none and item%}
-                            <li>{{item}}</li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            </div>
-            {% if hits|length == 0 %}
-                <p>No results found!</p>
-            {% else %}
-                <p>{{ hits|length }} results</p>
-                {% for hit in hits %}
-                <div class="post__item">
-                    <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
-                    <div class="post__itemcaption">
-                        <h3><i>{{ hit['scientificName'] }}</i></h3>
-                        <p>{{hit['commonName']}}</p>
-                        <p>{{hit['province']}}</p>
-                        <a href="{{url_for('getSpecies', id=hit['_id'])}}">View more</a>
-                    </div>
-                </div>
-                <div class="post__divider"></div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
+    <p>{{ id }}</p>
 {% endblock %}
 
 

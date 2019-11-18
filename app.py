@@ -14,7 +14,7 @@ def landing():
         login = session['login']
 
     try:
-        r = requests.get('https://server1.naradhipabhary.com:888/phyto')
+        r = requests.get('https://server1.inpel.id:888/phyto')
         d = r.json()
     except:
         print('Max retry!')
@@ -59,7 +59,7 @@ def query():
 
     # GETTING PHYTO LIST
     try:
-        r = requests.get('https://server1.naradhipabhary.com:888/phyto')
+        r = requests.get('https://server1.inpel.id:888/phyto')
         d = r.json()
     except:
         print('Max retry!')
@@ -87,7 +87,7 @@ def query():
     items = []
     if args['query'].strip():
         try:
-            r = requests.get(f'https://server1.naradhipabhary.com:888/species/search/{args["query"]}')
+            r = requests.get(f'https://server1.inpel.id:888/species/search/{args["query"]}')
             d = r.json()
         except:
             d = {}
@@ -99,7 +99,7 @@ def query():
                 items.remove(None)
     else:
         try:
-            r = requests.get('https://server1.naradhipabhary.com:888/species')
+            r = requests.get('https://server1.inpel.id:888/species')
             d = r.json()
             items = d
         except:
@@ -117,6 +117,10 @@ def query():
                 hits.append(i)
 
     return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
+
+@app.route('/query/species/<id>')
+def getSpecies(id):
+    return render_template('species.html', id=id)
 
 @app.route('/dashboard', methods=['GET','POST'])
 def dash():
@@ -136,7 +140,7 @@ def dash():
     }
 
     try:
-        r = requests.get("https://server1.naradhipabhary.com:888/users/verify", headers=headers)
+        r = requests.get("https://server1.inpel.id:888/users/verify", headers=headers)
         d = r.json()
     except:
         print('Max retry!')
@@ -146,7 +150,7 @@ def dash():
 
     # GET USER ORGS
     try:
-        r2 = requests.get("https://server1.naradhipabhary.com:888/species")
+        r2 = requests.get("https://server1.inpel.id:888/species")
         d2 = r2.json()
     except:
         print('Max retry!')
@@ -173,7 +177,7 @@ def dash():
 
         if pas:
             try:
-                r  = requests.post('https://server1.naradhipabhary.com:888/species', headers=headers, data=param)
+                r  = requests.post('https://server1.inpel.id:888/species', headers=headers, data=param)
                 d = r.json()
                 flash('Success!')
                 return redirect(url_for('dash'))
@@ -194,7 +198,7 @@ def login():
 
         payload = {'username':f'{username}','password':f'{password}'}
         try:
-            r = requests.post('https://server1.naradhipabhary.com:888/users/authenticate', data=payload)
+            r = requests.post('https://server1.inpel.id:888/users/authenticate', data=payload)
             d = r.json()
         except:
             d = {}

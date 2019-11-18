@@ -5,28 +5,31 @@
 
 {% block content %}
     <div class="panel">
-        <div class="panel__sidebar">
+        <div class="panel__sidebar pnactive">
+            <button>
+                <i class="material-icons">menu</i>
+            </button>
             <ul>
-                <li data-tab-target="#profile" class="pael__sideitems active">
-                    My Profile
+                <li data-tab-target="#profile" class="panel__sideitems active">
+                    <span class="hidden">My Profile</span>
                 </li>
                 <li data-tab-target="#organism" class="panel__sideitems">
-                    My Organism
+                    <span class="hidden">My Organism</span>
                 </li>
                 <li data-tab-target="#input" class="panel__sideitems">
-                    New Input Data
+                    <span class="hidden">Input Data</span>
                 </li>
                 {% if params.isAdmin %}
                 <li data-tab-target="#newuser" class="panel__sideitems">
-                    Add User
+                    <span>Add User</span>
                 </li>
                 {% endif %}
             </ul>
         </div>
-        <nav>
+        <div class="panel__nav cnactive">
             {% include '/modules/navigation.html' %}
-        </nav>
-        <div class="panel__contentcontainer">
+        </div>
+        <div class="panel__contentcontainer cnactive">
             <div id="organism" class="panel__content" data-tab-content>
                 <h1>My organisms</h1>
                 <p>You have {{ hits | length }} organism regiestered</p>
@@ -118,6 +121,48 @@
                 target.classList.add('active')
                 tab.classList.add('active')
             })
+        })
+
+        let navbutton = document.querySelector('.panel__sidebar button')
+        let clicked = false
+        navbutton.addEventListener('click', () => {
+            let navpanel = document.querySelector('.panel__sidebar')
+            let panelcontent = document.querySelector('.panel__contentcontainer')
+            let panelnav = document.querySelector('.panel__nav')
+            let panelitems = document.querySelectorAll('.panel__sidebar ul li')
+            let button = document.querySelector('.panel__sidebar button i')
+
+            clicked = !clicked
+            if (clicked) {
+                panelnav.classList.remove('cnactive')
+                panelcontent.classList.remove('cnactive')
+                navpanel.classList.remove('pnactive')
+                panelnav.classList.add('cactive')
+                panelcontent.classList.add('cactive')
+                navpanel.classList.add('pactive')
+                button.innerHTML = 'clear'
+
+                panelitems.forEach(x => {
+                    p = x.querySelector('span')
+                    p.classList.remove('hidden')
+                    p.style.position = 'relative'
+                })
+            } else {
+                panelnav.classList.remove('cactive')
+                panelcontent.classList.remove('cactive')
+                navpanel.classList.remove('pactive')
+                panelnav.classList.add('cnactive')
+                panelcontent.classList.add('cnactive')
+                navpanel.classList.add('pnactive')
+                button.innerHTML = 'menu'
+
+                panelitems.forEach(x => {
+                    p = x.querySelector('span')
+                    p.classList.add('hidden')
+                    p.style.position = 'absolute'
+                })
+            }
+
         })
     </script>
 {% endblock %}
