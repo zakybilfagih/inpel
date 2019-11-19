@@ -5,6 +5,9 @@ import requests
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'KJSAksd12321jndsaASKANDSK1iwnemasd'
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
+
+application = app
 
 @app.route('/')
 def landing():
@@ -144,7 +147,7 @@ def dash():
         d = r.json()
     except:
         print('Max retry!')
-        d = {}
+        redirect(url_for('landing'))
 
     params = d
 
@@ -166,9 +169,21 @@ def dash():
     location = [prov.name for prov in country]
 
     if request.method == 'POST':
+        file_form = request.files
         d = request.form
         dso = d.to_dict(flat=False)
         param = {k: dso[k][0] if len(dso[k]) <= 1 else dso[k] for k in dso}
+
+        param['antioxidantActivity'] = 'ada'
+        param['antibacterialActivity'] = 'ada'
+        param['anticancerActivity'] = 'ada'
+        param['structureElucidation'] = 'ada'
+
+        raw_image = file_form['species_image']
+
+        img_payload = {
+            'speciesImage': (raw_image.filename, raw_image.read(), "multipart/form-data")
+        }
 
         pas = True
         for item in param.items():
@@ -176,14 +191,14 @@ def dash():
                 pas = False
 
         if pas:
-            try:
-                r  = requests.post('https://server1.inpel.id:888/species', headers=headers, data=param)
-                d = r.json()
-                flash('Success!')
-                return redirect(url_for('dash'))
-            except:
-                flash('Error! try again!')
-                return redirect(url_for('dash'))
+            r  = requests.post('https://server1.inpel.id:888/species', headers=headers, data=param)
+            d = r.json()
+
+            if d['success']:
+                r2 = requests.post(f'https://server1.inpel.id:888/species/uploadImage/{d["id"]}', headers=headers, files=img_payload)
+                d2 = r2.text
+
+                flash('success')
         else:
             flash('Fill all of the params!')
             return redirect(url_for('dash'))

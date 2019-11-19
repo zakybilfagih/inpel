@@ -57,40 +57,52 @@
             </div>
 
             <div id="input" class="panel__content" data-tab-content>
-                <h1>New Data Input</h1>
-                <form method="POST" action="/dashboard">
-                    <label class="panel__formlabel">Common Name</label>
-                    <input type="text" name="commonName" placeholder="Common name..">
-                    <label class="panel__formlabel">Scientific Name</label>
-                    <input type="text" name="scientificName" placeholder="Scientific name..">
-                    <label class="panel__formlabel">Location</label>
-                    <input type="text" name="location" placeholder="Insert coordinates..">
-                    <input type="text" name="locationRadius" placeholder="Insert radius (km)..">
-                    <select name="province">
-                        <option value="" disabled selected>Select province</option>
-                        {% for loc in location %}
-                            <option value="{{loc}}">{{loc}}</option>
-                        {% endfor %}
-                    </select>
-                    <label class="panel__formlabel">Extract Yield</label>
-                    <input type="text" name="extractYield" placeholder="Extract yield..">
-                    <label class="panel__formlabel">Phytochemical Content</label>
-                    <input type="text" name="phytochemicalContent" placeholder="Phytochemical content..">
-                    <label class="panel__formlabel">Antioxidant Activity</label>
-                    <input type="text" name="antioxidantActivity" placeholder="Antioxidant activity..">
-                    <label class="panel__formlabel">Antibacterial Activity</label>
-                    <input type="text" name="antibacterialActivity" placeholder="Antibacterial activity..">
-                    <label class="panel__formlabel">Anticancer Activity</label>
-                    <input type="text" name="anticancerActivity" placeholder="Anticancer activity..">
-                    <label class="panel__formlabel">Metabolomics</label>
-                    <input type="text" name="metabolomics" placeholder="Metabolomics..">
-                    <label class="panel__formlabel">Structure Euclidation</label>
-                    <input type="text" name="structureElucidation" placeholder="Structure elucidation..">
-                    <label class="panel__formlabel">BioAssay</label>
-                    <input type="text" name="bioassay" placeholder="BioAssay..">
-                    <label class="panel__formlabel">Research Paper</label>
-                    <input type="text" name="researchPapers" placeholder="Research Papers..">
-                    <input type="submit" value="Submit">
+                <h1>Add New Organism</h1>
+                <form method="POST" action="/dashboard" enctype="multipart/form-data">
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Common Name</label>
+                        <input type="text" name="commonName" placeholder="Common name..">
+                    </div class=panel__formcontainer>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Scientific Name</label>
+                        <input type="text" name="scientificName" placeholder="Scientific name..">
+                    </div>
+                    <div class="panel__formcontainer">
+                        <label class="panel__formlabel">Upload Image</label>
+                        <input type="file" accept="image/*" name="species_image">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Location</label>
+                        <input type="text" name="location" placeholder="Insert coordinates..">
+                        <input type="text" name="locationRadius" placeholder="Insert radius (km)..">
+                        <select name="province">
+                            <option value="" disabled selected>Select province</option>
+                            {% for loc in location %}
+                                <option value="{{loc}}">{{loc}}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Extract Yield</label>
+                        <input type="text" name="extractYield" placeholder="Extract yield..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Phytochemical Content</label>
+                        <input type="text" name="phytochemicalContent" placeholder="Phytochemical content..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Metabolites</label>
+                        <input type="text" name="metabolomics" placeholder="Metabolomics..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">BioAssay</label>
+                        <input type="text" name="bioassay" placeholder="BioAssay..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Research Paper</label>
+                        <input type="text" name="researchPapers" placeholder="Research Papers..">
+                    </div class=panel__formcontainer>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
             {% if params.isAdmin %}
@@ -164,5 +176,7 @@
             }
 
         })
+
+
     </script>
 {% endblock %}

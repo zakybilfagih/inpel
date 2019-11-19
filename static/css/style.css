@@ -588,6 +588,7 @@ input:-webkit-autofill:active {
 .panel__contentcontainer h1 {
     font-family: 'BrandonText-Bold';
     font-weight: 100;
+    margin-bottom: 20px;
 }
 
 .panel__contentcontainer p {
@@ -654,6 +655,31 @@ input:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+}
+
+.panel__formcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-bottom: 10px;
+}
+
+.panel__formlabel {
+    font-family: 'BrandonText-Regular';
+}
+
+.panel__formcontainer input {
+    border: 1px gray solid;
+    padding: 5px 10px;
+    border-radius: 2px;
+}
+
+.panel__formcontainer > * {
+    margin-bottom: 4px;
+}
+
+.panel__content form button {
+    align-self: flex-start;
 }
 
 li[data-tab-target="#profile"]:before {

@@ -84,7 +84,11 @@
                 <p>{{ hits|length }} results</p>
                 {% for hit in hits %}
                 <div class="post__item">
+                    {% if hit['hasImage'] == True %}
+                    <img class="post__itemimage" style="object-fit: cover;" src="{{ 'https://server1.inpel.id:888/images/{}{}'.format(hit['_id'],hit['imageExt']) }}" alt="">
+                    {% else %}
                     <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
+                    {% endif %}
                     <div class="post__itemcaption">
                         <h3><i>{{ hit['scientificName'] }}</i></h3>
                         <p>{{hit['commonName']}}</p>
