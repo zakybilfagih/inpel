@@ -58,7 +58,7 @@
 
             <div id="input" class="panel__content" data-tab-content>
                 <h1>Add New Organism</h1>
-                <form method="POST" action="/dashboard" enctype="multipart/form-data">
+                <form method="POST" action="{{ back_url }}/dashboard" enctype="multipart/form-data">
                     <div class=panel__formcontainer>
                         <label class="panel__formlabel">Common Name</label>
                         <input type="text" name="commonName" placeholder="Common name..">

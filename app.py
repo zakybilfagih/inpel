@@ -8,8 +8,9 @@ app.config['SECRET_KEY'] = 'KJSAksd12321jndsaASKANDSK1iwnemasd'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
 application = app
+back_url = '/andi'
 
-@app.route('/')
+@app.route(f'{back_url}/')
 def landing():
     if 'login' not in session:
         login = False
@@ -37,7 +38,7 @@ def landing():
 
     return render_template('landing.html', login=login,location=location, phyto=phyto)
 
-@app.route('/query')
+@app.route(f'{back_url}/query')
 def query():
     login = ''
     if 'login' not in session:
@@ -119,13 +120,13 @@ def query():
                     continue
                 hits.append(i)
 
-    return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto)
+    return render_template('query.html',login=login, argslist=argslist, hits=hits, location=location, phyto=phyto, back_url=back_url)
 
-@app.route('/query/species/<id>')
+@app.route(f'{back_url}/query/species/<id>')
 def getSpecies(id):
     return render_template('species.html', id=id)
 
-@app.route('/dashboard', methods=['GET','POST'])
+@app.route(f'{back_url}/dashboard', methods=['GET','POST'])
 def dash():
     # LOGIN STUFF
     login = ''
@@ -203,9 +204,9 @@ def dash():
             flash('Fill all of the params!')
             return redirect(url_for('dash'))
 
-    return render_template('panel.html', login=login, params=params, hits=hits, location=location)
+    return render_template('panel.html', login=login, params=params, hits=hits, location=location, back_url=back_url)
 
-@app.route('/login', methods=['GET','POST'])
+@app.route(f'{back_url}/login', methods=['GET','POST'])
 def login():
     if request.method == 'POST':
         username = request.form.get('username')
@@ -229,9 +230,9 @@ def login():
     if 'login' in session and session['login'] == True:
         return redirect(url_for('landing'))
 
-    return(render_template('login.html'))
+    return(render_template('login.html', back_url=back_url))
 
-@app.route('/logout')
+@app.route(f'{back_url}/logout')
 def logout():
     session.pop('token')
     session['login'] = False

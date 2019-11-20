@@ -4,7 +4,7 @@
 {% block title %}{% endblock %}
 
 {% block navtag %}
-    <form action="/query">
+    <form action="{{ back_url }}/query">
         <div class="navtag__searchcontainer">
             <div class="navtag__search">
                 <input class="landing__searchinput" name="query" type="text" placeholder="Search">

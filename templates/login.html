@@ -17,7 +17,7 @@
             <div id="login__logo">
                 <img class = "login__logoimg" src="{{ url_for('static', filename='img/pp_icon_grey.png') }}" alt="">
             </div>
-            <form action="/login" class="login__formcontainer" method="POST">
+            <form action="{{ back_url }}/login" class="login__formcontainer" method="POST">
                 {% if messages %}
                 <ul class="flashed">
                     {% for message in messages %}
