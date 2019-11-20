@@ -8,7 +8,7 @@ app.config['SECRET_KEY'] = 'KJSAksd12321jndsaASKANDSK1iwnemasd'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
 
 application = app
-back_url = '/andi'
+back_url = ''
 
 @app.route(f'{back_url}/')
 def landing():

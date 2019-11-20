@@ -615,16 +615,20 @@ input:-webkit-autofill:active {
     background: #388A5F;
     position: sticky;
     font-family: 'BrandonText-Medium';
+    display: flex;
+    flex-direction: column;
 }
 
 .panel__sidebar button {
-    display: block;
-    margin-left: auto;
-    margin-right: 0;
     height: 65px;
     width: 65px;
     border: none;
     background: gray;
+    align-self: flex-end;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .panel__sidebar ul {
