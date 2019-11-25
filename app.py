@@ -234,8 +234,9 @@ def login():
 
 @app.route(f'{back_url}/logout')
 def logout():
-    session.pop('token')
-    session['login'] = False
+    if 'token' in session:
+        session.pop('token')
+        session['login'] = False
 
     return redirect(url_for('landing'))
 
