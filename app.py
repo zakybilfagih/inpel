@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, flash, url_for, redirect, ses
 from werkzeug.datastructures import ImmutableMultiDict
 import pycountry
 import requests
+import forms
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'KJSAksd12321jndsaASKANDSK1iwnemasd'
@@ -40,7 +41,6 @@ def landing():
 
 @app.route(f'{back_url}/query')
 def query():
-    login = ''
     if 'login' not in session:
         login = False
     else:
@@ -51,7 +51,6 @@ def query():
     location = [prov.name for prov in country]
 
     # GETTING ARGS
-    args = {}
     args = {
         "query":request.args.get('query'),
         "filterby":request.args.get('filterby'),
@@ -203,8 +202,71 @@ def dash():
         else:
             flash('Fill all of the params!')
             return redirect(url_for('dash'))
+    adduserform = forms.addUserForm(request.form)
 
-    return render_template('panel.html', login=login, params=params, hits=hits, location=location, back_url=back_url)
+    return render_template('panel.html', login=login, params=params, hits=hits, location=location, back_url=back_url,
+                           add_user_form=adduserform)
+
+
+@app.route(f'{back_url}/addUser', methods=['POST'])
+def addUser():
+    if 'login' not in session:
+        login = False
+    else:
+        login = session['login']
+
+    if not login:
+        return redirect(url_for('index'))
+
+    # GET USER DATA
+    headers = {
+        "Authorization": session['token']
+    }
+
+    try:
+        r = requests.get("https://server1.inpel.id:888/users/verify", headers=headers)
+        d = r.json()
+    except:
+        print('Max retry!')
+        redirect(url_for('landing'))
+
+    addingUSer = d
+
+    if not addingUSer["isAdmin"]:
+        flash("Not Admin")
+        return redirect('/dashboard')
+    else:
+        addUserForm = forms.addUserForm(request.form)
+        if addUserForm.validate():
+            flash("Correct form")
+            payload = {"username": addUserForm.username.data,
+                       "password": addUserForm.password.data,
+                       "email": addUserForm.email.data,
+                       "fullname": addUserForm.fullname.data,
+                       "profileURL": addUserForm.profileUrl.data,
+                       "affiliation": addUserForm.affiliation.data}
+            if addUserForm.admin.data:
+                payload["code"] = "1234567890"
+            try:
+                r = requests.post("https://server1.inpel.id:888/users", headers=headers, data=payload)
+                d = r.json()
+                if d.get("success", False):
+                    print("Success adding user")
+                    flash('Success creating user')
+                    return redirect('/dashboard')
+                else:
+                    print(d)
+                    flash('Error creating user')
+                    return redirect('/dashboard')
+            except Exception as e:
+                print(f'Error: {e}')
+                flash('Error creating user')
+                return redirect('/dashboard')
+
+            return redirect('/dashboard')
+        else:
+            flash("Incorrect form")
+            return redirect('/dashboard')
 
 @app.route(f'{back_url}/login', methods=['GET','POST'])
 def login():

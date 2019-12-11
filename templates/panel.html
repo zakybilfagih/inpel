@@ -20,9 +20,9 @@
                     <span class="hidden">Input Data</span>
                 </li>
                 {% if params.isAdmin %}
-                <li data-tab-target="#newuser" class="panel__sideitems">
-                    <span>Add User</span>
-                </li>
+                    <li data-tab-target="#newuser" class="panel__sideitems">
+                        <span>Add User</span>
+                    </li>
                 {% endif %}
             </ul>
         </div>
@@ -30,32 +30,44 @@
             {% include '/modules/navigation.html' %}
         </div>
         <div class="panel__contentcontainer cnactive">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    <ul class=flashes>
+                        {% for message in messages %}
+                            <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
             <div id="organism" class="panel__content" data-tab-content>
                 <h1>My organisms</h1>
                 <p>You have {{ hits | length }} organism regiestered</p>
                 {% for hit in hits %}
-                <div class="post__item">
-                    {% if hit['hasImage'] == True %}
-                    <img class="post__itemimage" style="object-fit: cover;" src="{{ 'https://server1.inpel.id:888/images/{}{}'.format(hit['_id'],hit['imageExt']) }}" alt="">
-                    {% else %}
-                    <img class="post__itemimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
-                    {% endif %}
-                    <div class="post__itemcaption">
-                        <h3><i>{{hit['scientificName']}}</i></h3>
-                        <p>{{hit['commonName']}}</p>
-                        <p>{{hit['province']}}</p>
-                        <a href="">Edit</a>
+                    <div class="post__item">
+                        {% if hit['hasImage'] == True %}
+                            <img class="post__itemimage" style="object-fit: cover;"
+                                 src="{{ 'https://server1.inpel.id:888/images/{}{}'.format(hit['_id'],hit['imageExt']) }}"
+                                 alt="">
+                        {% else %}
+                            <img class="post__itemimage"
+                                 src="{{ url_for('static', filename='img/img__placeholder.png') }}" alt="">
+                        {% endif %}
+                        <div class="post__itemcaption">
+                            <h3><i>{{ hit['scientificName'] }}</i></h3>
+                            <p>{{ hit['commonName'] }}</p>
+                            <p>{{ hit['province'] }}</p>
+                            <a href="">Edit</a>
+                        </div>
                     </div>
-                </div>
-                <div class="post__divider"></div>
+                    <div class="post__divider"></div>
                 {% endfor %}
             </div>
 
             <div id="profile" class="panel__content active" data-tab-content>
                 <h1>Welcome back {{ params.fullname }}</h1>
-                <p>Username : {{params.username}}</p>
-                <p>Email : {{params.email}}</p>
-                <p>Affiliation : {{params.affiliation}}</p>
+                <p>Username : {{ params.username }}</p>
+                <p>Email : {{ params.email }}</p>
+                <p>Affiliation : {{ params.affiliation }}</p>
             </div>
 
             <div id="input" class="panel__content" data-tab-content>
@@ -80,7 +92,7 @@
                         <select name="province">
                             <option value="" disabled selected>Select province</option>
                             {% for loc in location %}
-                                <option value="{{loc}}">{{loc}}</option>
+                                <option value="{{ loc }}">{{ loc }}</option>
                             {% endfor %}
                         </select>
                     </div>
@@ -108,9 +120,20 @@
                 </form>
             </div>
             {% if params.isAdmin %}
-            <div id="newuser" class="panel__content" data-tab-content>
-                <h1>adduser</h1>
-            </div>
+                <div id="newuser" class="panel__content" data-tab-content>
+                    <h1>adduser</h1>
+                    <form method="post" action="/addUser">
+                        <table>
+                            {% for field in add_user_form %}
+                                <tr>
+                                    <td>{{ field.label }}</td>
+                                    <td>{{ field }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <input type="submit" value="Add User"/>
+                    </form>
+                </div>
             {% endif %}
         </div>
     </div>
