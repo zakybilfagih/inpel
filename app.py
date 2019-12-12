@@ -243,6 +243,37 @@ def addProfilePic():
 
     user = d
 
+    if not user.get("hasImage", False):
+        print("Test")
+        imageForm = forms.uploadProfile(request.form)
+
+        if imageForm.validate() or True:
+            raw_image = request.files.get("profilePic", None)
+
+            if raw_image:
+                img_payload = {
+                    'userImage': (raw_image.filename, raw_image.read(), "multipart/form-data")
+                }
+                print("jnjs")
+
+                r2 = requests.post(f'https://server1.inpel.id:888/users/upload', headers=headers,
+                                   files=img_payload)
+
+                if r2.json().get("success", False):
+                    flash("Success adding profile image")
+                    return redirect('/dashboard')
+                else:
+                    flash(f"Error: {r2.json().get('code', 'Unknown Error')}")
+                    return redirect('/dashboard')
+            else:
+                flash("No image file")
+                return redirect('/dashboard')
+        else:
+            flash("Error, Not valid form.")
+            return redirect('/dashboard')
+    else:
+        flash("Error, already have image.")
+        return redirect('/dashboard')
 
 
 @app.route(f'{back_url}/addUser', methods=['POST'])

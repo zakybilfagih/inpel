@@ -41,7 +41,7 @@
             {% endwith %}
             <div id="organism" class="panel__content" data-tab-content>
                 <h1>My organisms</h1>
-                <p>You have {{ hits | length }} organism regiestered</p>
+                <p>You have {{ hits | length }} organism registered</p>
                 {% for hit in hits %}
                     <div class="post__item">
                         {% if hit['hasImage'] == True %}
@@ -69,7 +69,7 @@
                 <p>Email : {{ params.email }}</p>
                 <p>Affiliation : {{ params.affiliation }}</p>
                 {% if profile_form is defined %}
-                    <form method="post" action="/uploadProfile">
+                    <form method="post" action="/uploadProfile" enctype="multipart/form-data">
                         {% for field in profile_form %}
                             <div class=panel__formcontainer>
                                 <label class="panel__formlabel">{{ field.label }}</label>
@@ -80,74 +80,73 @@
                             <input type="submit" value="Upload Your Profile"/>
                         </div>
                     </form>
-                    </div>
                 {% endif %}
-        </div>
+            </div>
 
-        <div id="input" class="panel__content" data-tab-content>
-            <h1>Add new organism</h1>
-            <form method="POST" action="{{ back_url }}/dashboard" enctype="multipart/form-data">
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Common Name</label>
-                    <input type="text" name="commonName" placeholder="Common name..">
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Scientific Name</label>
-                    <input type="text" name="scientificName" placeholder="Scientific name..">
-                </div>
-                <div class="panel__formcontainer">
-                    <label class="panel__formlabel">Upload Image</label>
-                    <input type="file" accept="image/*" name="species_image">
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Location</label>
-                    <input type="text" name="location" placeholder="Insert coordinates..">
-                    <input type="text" name="locationRadius" placeholder="Insert radius (km)..">
-                    <select name="province">
-                        <option value="" disabled selected>Select province</option>
-                        {% for loc in location %}
-                            <option value="{{ loc }}">{{ loc }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Extract Yield</label>
-                    <input type="text" name="extractYield" placeholder="Extract yield..">
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Phytochemical Content</label>
-                    <input type="text" name="phytochemicalContent" placeholder="Phytochemical content..">
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Metabolites</label>
-                    <input type="text" name="metabolomics" placeholder="Metabolomics..">
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">BioAssay</label>
-                    <input type="text" name="bioassay" placeholder="BioAssay..">
-                </div>
-                <div class=panel__formcontainer>
-                    <label class="panel__formlabel">Research Paper</label>
-                    <input type="text" name="researchPapers" placeholder="Research Papers..">
-                </div class=panel__formcontainer>
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        {% if params.isAdmin %}
-            <div id="newuser" class="panel__content" data-tab-content>
-                <h1>adduser</h1>
-                <form method="post" action="/addUser">
-                    {% for field in add_user_form %}
-                        <div class=panel__formcontainer>
-                            <label class="panel__formlabel">{{ field.label }}</label>
-                            {{ field() }}
-                        </div>
-                    {% endfor %}
-                    <input type="submit" value="Add User"/>
+            <div id="input" class="panel__content" data-tab-content>
+                <h1>Add new organism</h1>
+                <form method="POST" action="{{ back_url }}/dashboard" enctype="multipart/form-data">
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Common Name</label>
+                        <input type="text" name="commonName" placeholder="Common name..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Scientific Name</label>
+                        <input type="text" name="scientificName" placeholder="Scientific name..">
+                    </div>
+                    <div class="panel__formcontainer">
+                        <label class="panel__formlabel">Upload Image</label>
+                        <input type="file" accept="image/*" name="species_image">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Location</label>
+                        <input type="text" name="location" placeholder="Insert coordinates..">
+                        <input type="text" name="locationRadius" placeholder="Insert radius (km)..">
+                        <select name="province">
+                            <option value="" disabled selected>Select province</option>
+                            {% for loc in location %}
+                                <option value="{{ loc }}">{{ loc }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Extract Yield</label>
+                        <input type="text" name="extractYield" placeholder="Extract yield..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Phytochemical Content</label>
+                        <input type="text" name="phytochemicalContent" placeholder="Phytochemical content..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Metabolites</label>
+                        <input type="text" name="metabolomics" placeholder="Metabolomics..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">BioAssay</label>
+                        <input type="text" name="bioassay" placeholder="BioAssay..">
+                    </div>
+                    <div class=panel__formcontainer>
+                        <label class="panel__formlabel">Research Paper</label>
+                        <input type="text" name="researchPapers" placeholder="Research Papers..">
+                    </div>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
-        {% endif %}
-    </div>
+            {% if params.isAdmin %}
+                <div id="newuser" class="panel__content" data-tab-content>
+                    <h1>adduser</h1>
+                    <form method="post" action="/addUser">
+                        {% for field in add_user_form %}
+                            <div class=panel__formcontainer>
+                                <label class="panel__formlabel">{{ field.label }}</label>
+                                {{ field() }}
+                            </div>
+                        {% endfor %}
+                        <input type="submit" value="Add User"/>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
     </div>
 {% endblock %}
 
