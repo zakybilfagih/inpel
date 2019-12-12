@@ -191,7 +191,7 @@ def dash():
                 pas = False
 
         if pas:
-            r  = requests.post('https://server1.inpel.id:888/species', headers=headers, data=param)
+            r = requests.post('https://server1.inpel.id:888/species', headers=headers, data=param)
             d = r.json()
 
             if d['success']:
@@ -199,13 +199,50 @@ def dash():
                 d2 = r2.text
 
                 flash('success')
+                print(d2)
+                return redirect('/dashboard')
         else:
             flash('Fill all of the params!')
             return redirect(url_for('dash'))
     adduserform = forms.addUserForm(request.form)
+    print(params)
+    print(f"Hasimage {params.get('hasImage', False)}")
 
-    return render_template('panel.html', login=login, params=params, hits=hits, location=location, back_url=back_url,
+    if not params.get("hasImage", False):
+        uploadProfileForm = forms.uploadProfile(request.form)
+
+        return render_template('panel.html', login=login, params=params, hits=hits, location=location,
+                               back_url=back_url, add_user_form=adduserform, profile_form=uploadProfileForm)
+    else:
+        return render_template('panel.html', login=login, params=params, hits=hits, location=location,
+                               back_url=back_url,
                            add_user_form=adduserform)
+
+
+@app.route(f'{back_url}/uploadProfile', methods=['POST'])
+def addProfilePic():
+    if 'login' not in session:
+        login = False
+    else:
+        login = session['login']
+
+    if not login:
+        return redirect(url_for('index'))
+
+    # GET USER DATA
+    headers = {
+        "Authorization": session['token']
+    }
+
+    try:
+        r = requests.get("https://server1.inpel.id:888/users/verify", headers=headers)
+        d = r.json()
+    except:
+        print('Max retry!')
+        redirect(url_for('landing'))
+
+    user = d
+
 
 
 @app.route(f'{back_url}/addUser', methods=['POST'])
@@ -251,6 +288,7 @@ def addUser():
                 r = requests.post("https://server1.inpel.id:888/users", headers=headers, data=payload)
                 d = r.json()
                 if d.get("success", False):
+
                     print("Success adding user")
                     flash('Success creating user')
                     return redirect('/dashboard')

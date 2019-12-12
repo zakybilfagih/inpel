@@ -688,6 +688,12 @@ li[data-tab-target="#input"]:before {
     font-size: 24px;
 }
 
+li[data-tab-target="#newuser"]:before {
+    content: 'person_add';
+    font-family: 'material icons';
+    font-size: 24px;
+}
+
 .none {
     display: none;
 }
