@@ -3,10 +3,15 @@ from werkzeug.datastructures import ImmutableMultiDict
 import pycountry
 import requests
 import forms
+import os
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'KJSAksd12321jndsaASKANDSK1iwnemasd'
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024 # 16 MB
+# Development Only
+if "PYCHARM_HOSTED" in os.environ:
+    app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
+
 
 application = app
 back_url = ''
@@ -123,7 +128,10 @@ def query():
 
 @app.route(f'{back_url}/query/species/<id>')
 def getSpecies(id):
-    return render_template('species.html', id=id)
+    req = requests.get(f'https://server1.inpel.id:888/species/getSingle/{id}')
+    spc = req.json()
+    print(spc)
+    return render_template('species.html', id=id, species=spc)
 
 @app.route(f'{back_url}/dashboard', methods=['GET','POST'])
 def dash():

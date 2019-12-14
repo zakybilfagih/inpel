@@ -523,6 +523,33 @@ input:-webkit-autofill:active {
     text-align: center;
 }
 
+.post__itemcaptionnew {
+}
+
+.post__itemcaptionnew h3 {
+    font-size: 22px;
+}
+
+.link_margin {
+    padding-bottom: 5px !important;
+    margin-top: 5px !important;
+    padding-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+
+.post__itemcaptionnew p {
+    font-size: 18px;
+}
+
+.post__itemcaptionnew a {
+    display: block;
+    color: white;
+    background: #388A5F;
+    padding: 5px;
+    text-align: center;
+    border-radius: 4px;
+}
+
 .post__itemimage {
     width: calc(287px / 2);
     height: calc(249px / 2);
