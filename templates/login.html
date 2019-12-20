@@ -4,38 +4,38 @@
 {% block title %}{% endblock %}
 
 {% block navtag %}
-    <h3 class="navtag__header">INDONESIA NATURAL PRODUCTS LIBRARY</h3>
+<h3 class="navtag__header">INDONESIA NATURAL PRODUCTS LIBRARY</h3>
 {% endblock %}
 
 
 {% block content %}
-    {% include '/modules/navigation.html' %}
-    {{ super() }}
-    {% with messages = get_flashed_messages() %}
-    <div class="login">
-        <div class="login__container">
-            <div id="login__logo">
-                <img class = "login__logoimg" src="{{ url_for('static', filename='img/pp_icon_grey.png') }}" alt="">
-            </div>
-            <form action="{{ back_url }}/login" class="login__formcontainer" method="POST">
-                {% if messages %}
-                <ul class="flashed">
-                    {% for message in messages %}
-                        <li>{{ message | e}}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                {% endwith %}
-                <div class="login__form">
-                    <input name="username" id="username" type="username" placeholder="Username">
-                </div>
-                <div class="login__form">
-                    <input name="password" id="password" type="password" placeholder="Password">
-                </div>
-                <button id="login" type="submit">Login</button>
-            </form>
-        </div>
+{% include '/modules/navigation.html' %}
+{{ super() }}
+{% with messages = get_flashed_messages() %}
+<div class="login">
+  <div class="login__container">
+    <div id="login__logo">
+      <img class="login__logoimg" src="{{ url_for('static', filename='img/pp_icon_grey.png') }}" alt="">
     </div>
+    <form action="{{ back_url }}/login" class="login__formcontainer" method="POST">
+      {% if messages %}
+      <ul class="flashed">
+        {% for message in messages %}
+        <li>{{ message | e}}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+      {% endwith %}
+      <div class="login__form">
+        <input name="username" id="username" type="username" placeholder="Username" tabindex="1">
+      </div>
+      <div class="login__form">
+        <input name="password" id="password" type="password" placeholder="Password" tabindex="2">
+      </div>
+      <button id="login" type="submit" tabindex="3">Login</button>
+    </form>
+  </div>
+</div>
 {% endblock %}
 
 {% block scripts %}{% endblock %}
