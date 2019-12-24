@@ -236,13 +236,11 @@ def dash():
                 d2 = r2.text
 
                 flash("success")
-                print(d2)
                 return redirect("/dashboard")
         else:
             flash("Fill all of the params!")
             return redirect(url_for("dash"))
     adduserform = forms.addUserForm(request.form)
-    print(params)
     print(f"Hasimage {params.get('hasImage', False)}")
 
     if not params.get("hasImage", False):
@@ -293,7 +291,6 @@ def addProfilePic():
     user = d
 
     if not user.get("hasImage", False):
-        print("Test")
         imageForm = forms.uploadProfile(request.form)
 
         if imageForm.validate() or True:
@@ -307,7 +304,6 @@ def addProfilePic():
                         "multipart/form-data",
                     )
                 }
-                print("jnjs")
 
                 r2 = requests.post(
                     f"https://server1.inpel.id:888/users/upload",
