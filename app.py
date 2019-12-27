@@ -25,6 +25,31 @@ if "PYCHARM_HOSTED" in os.environ:
 application = app
 back_url = ""
 
+# UNIVERSAL FUNC
+# GET PROVINCE LIST
+def getprov():
+    country = pycountry.subdivisions.get(country_code="ID")
+    location = [prov.name for prov in country]
+    return location
+
+
+def getallphyto():
+    try:
+        r = requests.get("https://server1.inpel.id:888/phyto")
+        d = r.json()
+    except:
+        print("Max retry!")
+        d = {}
+
+    phyto = {}
+    for i in range(len(d)):
+        if d[i]["name"] not in phyto:
+            phyto[d[i]["name"]] = [d[i]["_id"]]
+        else:
+            phyto[d[i]["name"]].append(d[i]["_id"])
+
+    return phyto
+
 
 @app.route(f"{back_url}/")
 def landing():
@@ -33,24 +58,8 @@ def landing():
     else:
         login = session["login"]
 
-    try:
-        r = requests.get("https://server1.inpel.id:888/phyto")
-        d = r.json()
-    except:
-        print("Max retry!")
-        d = {}
-
-    country = pycountry.subdivisions.get(country_code="ID")
-    location = [prov.name for prov in country]
-
-    phyto = []
-    for i in range(len(d)):
-        sama = False
-        for j in phyto:
-            if d[i]["name"] in j:
-                sama = True
-        if not sama:
-            phyto.append([d[i]["name"], d[i]["_id"]])
+    location = getprov()
+    phyto = getallphyto()
 
     return render_template("landing.html", login=login, location=location, phyto=phyto)
 
@@ -63,8 +72,7 @@ def query():
         login = session["login"]
 
     # GET PROVINCE LIST
-    country = pycountry.subdivisions.get(country_code="ID")
-    location = [prov.name for prov in country]
+    location = getprov()
 
     # GETTING ARGS
     args = {
@@ -77,30 +85,11 @@ def query():
     argslist = list(args.values())
 
     # GETTING PHYTO LIST
-    try:
-        r = requests.get("https://server1.inpel.id:888/phyto")
-        d = r.json()
-    except:
-        print("Max retry!")
-        d = {}
+    phyto = getallphyto()
+    phytolist = [item for sublist in list(phyto.values()) for item in sublist]
 
-    # REMOVE DUPLICATE PHYTOCHEMS
-    phyto = []
-    for i in range(len(d)):
-        sama = False
-        for j in phyto:
-            if d[i]["name"] in j:
-                sama = True
-        if not sama:
-            phyto.append([d[i]["name"], d[i]["_id"]])
-
-    phytolist = []
-    for i in d:
-        if args["phyto"] == None:
-            phytolist.append(i["_id"])
-            continue
-        if i["name"] == args["phyto"]:
-            phytolist.append(i["_id"])
+    if args["phyto"]:
+        phytolist = phyto[args["phyto"]]
 
     items = []
     if args["query"].strip():
@@ -151,7 +140,19 @@ def query():
 def getSpecies(id):
     req = requests.get(f"https://server1.inpel.id:888/species/getSingle/{id}")
     spc = req.json()
-    return render_template("species.html", id=id, species=spc)
+    location = getprov()
+    phyto = getallphyto()
+
+    # GETTING PHYTO FROM ID
+    for chem in phyto.values():
+        if spc["phytochemicalContent"] in chem:
+            idx = list(phyto.values()).index(chem)
+            spc["phytochemicalContent"] = list(phyto.keys())[idx]
+            break
+
+    return render_template(
+        "species.html", id=id, species=spc, phyto=phyto, location=location
+    )
 
 
 @app.route(f"{back_url}/dashboard", methods=["GET", "POST"])
@@ -192,8 +193,7 @@ def dash():
             hits.append(item)
 
     # GET PROVINCE LIST
-    country = pycountry.subdivisions.get(country_code="ID")
-    location = [prov.name for prov in country]
+    location = getprov()
 
     if request.method == "POST":
         file_form = request.files
@@ -241,7 +241,6 @@ def dash():
             flash("Fill all of the params!")
             return redirect(url_for("dash"))
     adduserform = forms.addUserForm(request.form)
-    print(f"Hasimage {params.get('hasImage', False)}")
 
     if not params.get("hasImage", False):
         uploadProfileForm = forms.uploadProfile(request.form)
@@ -428,6 +427,7 @@ def logout():
         session["login"] = False
 
     return redirect(url_for("landing"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

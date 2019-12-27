@@ -55,7 +55,7 @@
                 <select name="phyto" class="landing__dropdown">
                     <option value="" disabled selected>Select phytochemical</option>
                     {% for py in phyto %}
-                    <option value="{{ py[0] }}">{{ py[0] }}</option>
+                    <option value="{{ py }}">{{ py }}</option>
                     {% endfor %}
                 </select>
             </div>
@@ -71,78 +71,104 @@
     <div class="species__container">
         <div class="species__right">
             <div class="species__card">
-                <h1 class="species__cardheader">Species Name</h1>
+                <h1 class="species__cardheader">{{ species['commonName'].split(',')[0] | title }}</h1>
                 <div class="species__cardimagecontainer">
+                    {% if species['hasImage'] == True %}
                     <img class="species__cardimage" src="{{ 'https://server1.inpel.id:888/images/{}{}'.format(species['_id'],species['imageExt']) }}" alt="">
+                    {% else %}
+                    <img class="species__cardimage" src="{{url_for('static', filename='img/img__placeholder.png')}}" alt="">
+                    {% endif %}
                 </div>
                 <div class="species__cardinfo">
                     <table>
                         <tr>
                             <td>Scientific Name</td>
                             <td>:</td>
-                            <td>Bla eheh</td>
+                            <td><i>{{ species['scientificName'] }}</i></td>
                         </tr>
                         <tr>
                             <td>Other Names</td>
                             <td>:</td>
-                            <td>Bahlul123</td>
+                            <td>
+                                <ul>
+                                    {% for i in species['commonName'].split(',') %}
+                                    <li>{{i}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td>Phytochemical <br /> Content</td>
                             <td>:</td>
-                            <td>Bahlul123</td>
+                            <td>
+                                <ul>
+                                    {% for i in species['phytochemicalContent'].split(',') %}
+                                    <li>{{i}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td>Bioassay</td>
                             <td>:</td>
-                            <td>Bahlul123</td>
+                            <td>
+                                <ul>
+                                    {% for i in species['bioassay'].split(',') %}
+                                    <li>{{i}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td>Metabolites</td>
                             <td>:</td>
-                            <td>Bahlul123</td>
+                            <td>
+                                <ul>
+                                    {% for i in species['metabolomics'].split(',') %}
+                                    <li>{{i}}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
         <div class="species__left">
-            <h1>test</h1>
+            <div class="species__map">
+                <h1 class="species__mapheader">
+                    Location
+                </h1>
+                <div id="map" style="height: 350px;"></div>
+                <p class="species__mapcoord">Coordinates: <span>{{ species['location'] }}</span> Radius: <span>{{ species['locationRadius'] }}</span></p>
+            </div>
+            <div class="species__authinfo">
+                <table>
+                    <tr>
+                        <td>Publication</td>
+                        <td>:</td>
+                        <td>{{ species['researchPapers'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Researcher Name</td>
+                        <td>:</td>
+                        <td>{{ species['researcherName'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Researcher Profile</td>
+                        <td>:</td>
+                        <td>{{ species['researcherProfile'] }}</td>
+                    </tr>
+                    <tr>
+                        <td>Institution</td>
+                        <td>:</td>
+                        <td>{{ species['researcherAffiliate'] }}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>
-<!-- <div class="post">
-    <div class="post__container">
-        {% if not species %}
-        <p>No results found!</p>
-        {% else %}
-        <div class="post__item">
-            {% if species['hasImage'] == True %}
-            <img class="post__itemimage" style="object-fit: cover;" src="{{ 'https://server1.inpel.id:888/images/{}{}'.format(species['_id'],species['imageExt']) }}" alt="">
-            {% else %}
-            <img class="post__itemimage" src="{{ url_for('static', filename='img/img__placeholder.png') }}" alt="">
-            {% endif %}
-            <div class="post__itemcaption">
-                <h3><i>{{ species['scientificName'] }}</i></h3>
-                <p>{{ species['commonName'] }}</p>
-                <p>{{ species['province'] }}</p>
-            </div>
-        </div>
-        <div class="post__itemcaptionnew" style="font-family: BrandonText-Regular">
-            <p><strong>Researcher</strong></p>
-            <p><strong>{{ species['researcherName'] }}</strong> of {{ species['researcherAffiliate'] }}</p>
-            <a href="{{ species['researcherProfile'] }}">Open Researcher Profile </a>
-            <p><strong>Research:</strong></p>
-            <a href="{{ species['metabolomics'] }}" class="link_margin">Metabolomics </a>
-            <a href="{{ species['bioassay'] }}" class="link_margin">Bioassay </a>
-            <a href="{{ species['researchPapers'] }}" class="link_margin">Other Research Paper </a>
-            <p><strong>Location:</strong></p>
-        </div>
-        <div id="map" style="height: 500px"></div>
-        <div class="post__divider"></div>
-        {% endif %}
-    </div>
-</div> -->
 {% endblock %}
 
 
@@ -163,6 +189,7 @@
       el: "#map",
       lat: coord[0],
       lng: coord[1],
+      zoom: 13,
       click: function (e) {
         console.log(e.latLng.lat());
       }
