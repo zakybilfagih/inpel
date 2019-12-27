@@ -5,6 +5,10 @@ body {
     height: 100%;
 }
 
+td {
+    word-break: break-all;
+}
+
 ul {
     list-style-position: inside;
 }
@@ -484,10 +488,11 @@ input:-webkit-autofill:active {
     justify-content: space-between;
     margin: 0 auto;
     height: 100%;
+    column-gap: 40px;
 }
 
 .species__container > * {
-    flex-basis: 48%;
+    flex: 48%;
     margin-top: 50px;
 }
 
@@ -576,6 +581,7 @@ input:-webkit-autofill:active {
 
 .species__authinfo {
     padding: 1em 0;
+    margin-bottom: 40px;
     background: #f8f8f9;
     border: 2px #665858 solid;
     border-radius: 10px;
@@ -907,6 +913,12 @@ li[data-tab-target="#newuser"]:before {
         height: calc(100vh - 219px);
     }
 
+    .species__container {
+        flex-direction: column;
+    }
+}
+
+@media only screen and (max-width: 990px) {
     .species__container {
         flex-direction: column;
     }
