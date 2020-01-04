@@ -203,7 +203,7 @@ input:-webkit-autofill:active {
     transition: all 0.2s ease;
 }
 
-#navtag__searchoptiontoggle:checked~.navtag__options {
+#navtag__searchoptiontoggle:checked ~ .navtag__options {
     max-height: 100%;
     overflow: inherit;
     margin-top: 20px;
@@ -240,7 +240,7 @@ input:-webkit-autofill:active {
     flex-direction: column;
 }
 
-.landing__formcontainer>* {
+.landing__formcontainer > * {
     width: 90%;
     margin: 0px auto;
 }
@@ -318,7 +318,7 @@ input:-webkit-autofill:active {
     cursor: pointer;
 }
 
-.landing__radiocontainer input[type="radio"]:checked~.landing__radio::before {
+.landing__radiocontainer input[type="radio"]:checked ~ .landing__radio::before {
     background: #388a5f;
 }
 
@@ -338,7 +338,7 @@ input:-webkit-autofill:active {
     display: none;
 }
 
-.navtag__radiocontainer input[type="radio"]:checked~.navtag__radio::before {
+.navtag__radiocontainer input[type="radio"]:checked ~ .navtag__radio::before {
     background: #696969;
 }
 
@@ -436,11 +436,11 @@ input:-webkit-autofill:active {
     align-items: center;
 }
 
-.login__container>* {
+.login__container > * {
     margin-bottom: 20px;
 }
 
-.login__formcontainer>* {
+.login__formcontainer > * {
     margin-bottom: 10px;
 }
 
@@ -490,7 +490,7 @@ input:-webkit-autofill:active {
     height: 100%;
 }
 
-.species__container>* {
+.species__container > * {
     flex: 48%;
     margin: 50px 20px;
 }
@@ -543,8 +543,8 @@ input:-webkit-autofill:active {
 .species__cardinfo table tr td:first-child {
     color: #388a5f;
     font-family: "BrandonText-Medium";
+    width: 150px;
     display: inline-block;
-    margin-right: 10px;
 }
 
 .species__cardinfo table tr td:last-child {
@@ -603,7 +603,7 @@ input:-webkit-autofill:active {
     color: #388a5f;
     font-family: "BrandonText-Medium";
     display: inline-block;
-    margin-right: 15px;
+    width: 175px;
 }
 
 .species__authinfo table tr td:last-child {
@@ -623,7 +623,7 @@ input:-webkit-autofill:active {
     margin-bottom: 5px;
 }
 
-.post__container>p {
+.post__container > p {
     font-family: "BrandonText-Regular";
     font-size: 20px;
 }
@@ -806,7 +806,7 @@ input:-webkit-autofill:active {
     margin-top: 0px;
 }
 
-.panel__sidebar ul li>* {
+.panel__sidebar ul li > * {
     margin-left: 10px;
 }
 
@@ -833,7 +833,7 @@ input:-webkit-autofill:active {
     border-radius: 2px;
 }
 
-.panel__formcontainer>* {
+.panel__formcontainer > * {
     margin-bottom: 4px;
 }
 
@@ -916,7 +916,7 @@ li[data-tab-target="#newuser"]:before {
         flex-direction: column;
     }
 
-    .species__container>* {
+    .species__container > * {
         margin: 30px 0;
     }
 }
@@ -926,7 +926,7 @@ li[data-tab-target="#newuser"]:before {
         flex-direction: column;
     }
 
-    .species__container>* {
+    .species__container > * {
         margin: 30px 0;
     }
 }
