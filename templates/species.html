@@ -91,7 +91,7 @@
                             <td>:</td>
                             <td>
                                 <ul>
-                                    {% for i in species['commonName'].split(',') %}
+                                    {% for i in species['commonName'].split(',')[1:] %}
                                     <li>{{i}}</li>
                                     {% endfor %}
                                 </ul>
@@ -147,7 +147,13 @@
                     <tr>
                         <td>Publication</td>
                         <td>:</td>
-                        <td>{{ species['researchPapers'] }}</td>
+                        <td>
+                            <ul>
+                                {% for link in species['researchPapers'].split(',') %}
+                                <li><a href={{link}}>{{link}}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </td>
                     </tr>
                     <tr>
                         <td>Researcher Name</td>

@@ -1,3 +1,5 @@
+/* Main Color : rgb(56, 138, 95) */
+
 @import url("https://fonts.googleapis.com/icon?family=Material+Icons");
 
 html,
@@ -446,26 +448,37 @@ input:-webkit-autofill:active {
 
 .login__formcontainer button {
     align-self: flex-start;
-    padding: 5px 10px;
+    padding: 7px 25px;
     margin: 0 auto;
     background: #388a5f;
     border: none;
+    border-radius:20px;
     color: white;
     font-family: "BrandonText-Medium";
-    font-size: 18px;
+    font-size: 1.3em;
     cursor: pointer;
 }
 
 .login__form {
     border: 1px gray solid;
     padding: 5px 10px;
-    border-radius: 2px;
+    border-radius: 20px;
 }
 
 .login__form input {
     border: none;
     background: none;
+    min-height:2.2em;
+    min-width:20em;
+    outline:none;
+    font-size:.9em;
 }
+
+.login__form input::placeholder {
+    font-family: "BrandonText-Regular";
+    font-size:1.3em;
+}
+
 
 .login__logoimg {
     height: 208px;
@@ -599,6 +612,10 @@ input:-webkit-autofill:active {
     vertical-align: top;
 }
 
+.species__authinfo a {
+    color:black;
+}
+
 .species__authinfo table tr td:first-child {
     color: #388a5f;
     font-family: "BrandonText-Medium";
@@ -639,8 +656,13 @@ input:-webkit-autofill:active {
     display: inline-block;
     background: #388a5f;
     color: white;
-    padding: 5px 8px;
+    padding: 5px 20px;
     margin: 5px 5px 5px 0;
+    border-radius:10px;
+}
+
+.btnGone {
+    display:none;
 }
 
 .post__item {
@@ -668,6 +690,7 @@ input:-webkit-autofill:active {
     background: #388a5f;
     padding: 5px;
     text-align: center;
+    border-radius:10px;
 }
 
 .post__itemcaptionnew h3 {
@@ -770,6 +793,17 @@ input:-webkit-autofill:active {
     margin: 30px auto;
 }
 
+.panel__content table {
+    border:1px solid black;
+    border-radius:15px;
+}
+
+.panel__content td {
+    font-family: "BrandonText-Regular";
+    font-size:1.3em;
+    padding:15px;
+}
+
 .panel__sideitems {
     display: flex;
     align-items: center;
@@ -814,6 +848,7 @@ input:-webkit-autofill:active {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
+    font-size:1.3em;
 }
 
 .panel__formcontainer {
@@ -839,6 +874,22 @@ input:-webkit-autofill:active {
 
 .panel__content form button {
     align-self: flex-start;
+    padding: 5px 10px;
+    font-family:"BrandonText-Regular";
+    border-radius: 10px;
+    border:none;
+    font-size:1em;
+    outline:none;
+    cursor: pointer;
+    background:rgb(56, 138, 95);
+    box-shadow: 0 0 5px rgba(209, 209, 209, 0.5);
+    color:white;
+}
+
+.panel__content form input, .panel__content select {
+    font-family:"BrandonText-Regular";
+    font-size:.9em;
+    border-radius:5px;
 }
 
 li[data-tab-target="#profile"]:before {
