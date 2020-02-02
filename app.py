@@ -14,6 +14,8 @@ import requests
 import forms
 import os
 
+from utlis import getallphyto, getprov
+
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "KJSAksd12321jndsaASKANDSK1iwnemasd"
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB
@@ -24,32 +26,6 @@ if "PYCHARM_HOSTED" in os.environ:
 
 application = app
 back_url = ""
-
-# UNIVERSAL FUNC
-# GET PROVINCE LIST
-def getprov():
-    country = pycountry.subdivisions.get(country_code="ID")
-    location = [prov.name for prov in country]
-    return location
-
-
-def getallphyto():
-    try:
-        r = requests.get("https://server1.inpel.id:888/phyto")
-        d = r.json()
-    except:
-        print("Max retry!")
-        d = {}
-
-    phyto = {}
-    for i in range(len(d)):
-        if d[i]["name"] not in phyto:
-            phyto[d[i]["name"]] = [d[i]["_id"]]
-        else:
-            phyto[d[i]["name"]].append(d[i]["_id"])
-
-    return phyto
-
 
 @app.route(f"{back_url}/")
 def landing():
