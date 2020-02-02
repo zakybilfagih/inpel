@@ -52,7 +52,7 @@ def query():
 
     # GETTING ARGS
     args = {
-        "query": request.args.get("query"),
+        "query": request.args.get("query") or "",
         "filterby": request.args.get("filterby"),
         "location": request.args.get("location"),
         "phyto": request.args.get("phyto"),
@@ -119,12 +119,18 @@ def getSpecies(id):
     location = getprov()
     phyto = getallphyto()
 
+    if 'success' in spc and not spc['success']:
+        return redirect(url_for("query"))
     # GETTING PHYTO FROM ID
     for chem in phyto.values():
         if spc["phytochemicalContent"] in chem:
             idx = list(phyto.values()).index(chem)
             spc["phytochemicalContent"] = list(phyto.keys())[idx]
             break
+
+    # fix plants with no alias
+    if 'alias' not in spc:
+        spc['alias'] = "placeholder1, placeholder2"
 
     return render_template(
         "species.html", id=id, species=spc, phyto=phyto, location=location,login=login
@@ -141,7 +147,7 @@ def dash():
         login = session["login"]
 
     if not login:
-        return redirect(url_for("index"))
+        return redirect(url_for("landing"))
 
     # GET USER DATA
     headers = {"Authorization": session["token"]}
@@ -177,7 +183,10 @@ def dash():
         dso = d.to_dict(flat=False)
         param = {k: dso[k][0] if len(dso[k]) <= 1 else dso[k] for k in dso}
 
-        param["antioxidantActivity"] = "ada"
+        getNames = list(map(lambda x: x.strip(), param["commonName"].split(",")))
+        param["commonName"] = getNames[0]
+        param["alias"] = getNames[1:]
+         
         param["antibacterialActivity"] = "ada"
         param["anticancerActivity"] = "ada"
         param["structureElucidation"] = "ada"
@@ -251,7 +260,7 @@ def addProfilePic():
         login = session["login"]
 
     if not login:
-        return redirect(url_for("index"))
+        return redirect(url_for("landing"))
 
     # GET USER DATA
     headers = {"Authorization": session["token"]}
@@ -311,7 +320,7 @@ def addUser():
         login = session["login"]
 
     if not login:
-        return redirect(url_for("index"))
+        return redirect(url_for("landing"))
 
     # GET USER DATA
     headers = {"Authorization": session["token"]}

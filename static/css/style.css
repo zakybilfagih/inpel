@@ -24,7 +24,7 @@ a,
 a:link,
 a:visited {
     text-decoration: none;
-    color: white;
+    color: inherit;
 }
 
 select:-moz-focusring {
@@ -93,6 +93,7 @@ input:-webkit-autofill:active {
 
 .navbar__logotext {
     font-family: "BrandonText-Bold";
+    color: white;
 }
 
 /* Navbar List */

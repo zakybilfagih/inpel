@@ -71,7 +71,7 @@
     <div class="species__container">
         <div class="species__right">
             <div class="species__card">
-                <h1 class="species__cardheader">{{ species['commonName'].split(',')[0] | title }}</h1>
+                <h1 class="species__cardheader">{{ species['commonName'].split(",")[0] | title }}</h1>
                 <div class="species__cardimagecontainer">
                     {% if species['hasImage'] == True %}
                     <img class="species__cardimage" src="{{ 'https://server1.inpel.id:888/images/{}{}'.format(species['_id'],species['imageExt']) }}" alt="">
@@ -91,8 +91,8 @@
                             <td>:</td>
                             <td>
                                 <ul>
-                                    {% for i in species['commonName'].split(',')[1:] %}
-                                    <li>{{i}}</li>
+                                    {% for i in species['alias'].split(',') %}
+                                    <li>{{i.strip()}}</li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -103,7 +103,7 @@
                             <td>
                                 <ul>
                                     {% for i in species['phytochemicalContent'].split(',') %}
-                                    <li>{{i}}</li>
+                                    <li>{{i.strip()}}</li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -114,7 +114,7 @@
                             <td>
                                 <ul>
                                     {% for i in species['bioassay'].split(',') %}
-                                    <li>{{i}}</li>
+                                    <li><a href={{i}}>{{i}}</a></li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -125,7 +125,7 @@
                             <td>
                                 <ul>
                                     {% for i in species['metabolomics'].split(',') %}
-                                    <li>{{i}}</li>
+                                    <li>{{i.strip()}}</li>
                                     {% endfor %}
                                 </ul>
                             </td>
