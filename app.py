@@ -127,7 +127,7 @@ def getSpecies(id):
             break
 
     return render_template(
-        "species.html", id=id, species=spc, phyto=phyto, location=location
+        "species.html", id=id, species=spc, phyto=phyto, location=location,login=login
     )
 
 

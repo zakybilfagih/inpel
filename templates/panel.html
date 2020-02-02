@@ -63,9 +63,23 @@
 
     <div id="profile" class="panel__content active" data-tab-content>
       <h1>Welcome back {{ params.fullname }}</h1>
-      <p>Username : {{ params.username }}</p>
-      <p>Email : {{ params.email }}</p>
-      <p>Affiliation : {{ params.affiliation }}</p>
+      <table>
+        <tr>
+          <td>Username</td>
+          <td>:</td>
+          <td>{{ params.username }}</td>
+        </tr>
+        <tr>
+          <td>Email</td>
+          <td>:</td>
+          <td>{{ params.email }}</td>
+        </tr>
+        <tr>
+          <td>Affiliation</td>
+          <td>:</td>
+          <td>{{ params.affiliation }}</td>
+        </tr>
+      </table>
       {% if profile_form is defined %}
       <form method="post" action="/uploadProfile" enctype="multipart/form-data">
         {% for field in profile_form %}
@@ -81,21 +95,30 @@
       {% endif %}
     </div>
 
+    <!-- New Organism Input -->
     <div id="input" class="panel__content" data-tab-content>
       <h1>Add new organism</h1>
       <form method="POST" action="{{ back_url }}/dashboard" enctype="multipart/form-data">
+
+        <!-- Common Name -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">Common Name</label>
           <input type="text" name="commonName" placeholder="Common name..">
         </div>
+
+        <!-- Scientific Name -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">Scientific Name</label>
           <input type="text" name="scientificName" placeholder="Scientific name..">
         </div>
+
+        <!-- Upload Image -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">Upload Image</label>
           <input type="file" accept="image/*" name="species_image">
         </div>
+
+        <!-- Input Coords -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">Location</label>
           <input type="text" name="location" placeholder="Insert coordinates..">
@@ -107,26 +130,31 @@
             {% endfor %}
           </select>
         </div>
-        <div class="panel__formcontainer">
-          <label class="panel__formlabel">Extract Yield</label>
-          <input type="text" name="extractYield" placeholder="Extract yield..">
-        </div>
+
+        <!-- Input Phytochemicals -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">Phytochemical Content</label>
           <input type="text" name="phytochemicalContent" placeholder="Phytochemical content..">
         </div>
+
+        <!-- Input Metabolites -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">Metabolites</label>
           <input type="text" name="metabolomics" placeholder="Metabolomics..">
         </div>
+
+        <!-- Input Bioassay -->
         <div class="panel__formcontainer">
           <label class="panel__formlabel">BioAssay</label>
           <input type="text" name="bioassay" placeholder="BioAssay..">
         </div>
+
+        <!-- Research paper links -->
         <div class="panel__formcontainer">
-          <label class="panel__formlabel">Research Paper</label>
+          <label class="panel__formlabel">Research Paper Links</label>
           <input type="text" name="researchPapers" placeholder="Research Papers..">
         </div>
+        
         <button type="submit">Submit</button>
       </form>
     </div>
